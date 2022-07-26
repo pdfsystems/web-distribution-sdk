@@ -20,7 +20,7 @@ it('can authenticate via api keys', function () {
         email: 'john@example.com'
     );
     $mock = new MockHandler([
-        new Response(200, ['content-type' => 'application/json'], json_encode($mockUser->toArray())),
+        new Response(200, ['content-type' => 'application/json'], $mockUser->toJson()),
     ]);
     $client = new Client(handler: HandlerStack::create($mock));
 
@@ -42,7 +42,7 @@ it('can authenticate via email/password', function () {
     );
     $mock = new MockHandler([
         new Response(200),
-        new Response(200, ['content-type' => 'application/json'], json_encode($mockUser->toArray())),
+        new Response(200, ['content-type' => 'application/json'], $mockUser->toJson()),
     ]);
     $client = new Client(handler: HandlerStack::create($mock));
 

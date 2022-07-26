@@ -11,10 +11,10 @@ class Company extends AbstractDto
 
     public string $name;
 
-    public string $ordertrack_username;
+    public ?string $ordertrack_username;
 
     public Currency $currency;
 
     #[CastWith(ArrayCaster::class, Line::class)]
-    public array $lines;
+    public array $lines = [];
 }

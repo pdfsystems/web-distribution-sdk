@@ -5,8 +5,10 @@ namespace Pdfsystems\WebDistributionSdk;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\RequestOptions;
 use Pdfsystems\WebDistributionSdk\Dtos\User;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class Client
 {
@@ -17,7 +19,12 @@ class Client
     }
 
     /**
+     * Authenticates with Web Distribution using an API key.
+     *
+     * @param string $apiKey
+     * @return User
      * @throws GuzzleException
+     * @throws UnknownProperties
      */
     public function authenticateWithApiKey(string $apiKey): User
     {
@@ -26,6 +33,14 @@ class Client
         return $this->getAuthenticatedUser();
     }
 
+    /**
+     * Instantiates a new Guzzle client, which will be used when interfacing with the Web Distribution API.
+     *
+     * @param string $baseUri
+     * @param string|null $apiKey
+     * @param HandlerStack|null $handler
+     * @return GuzzleClient
+     */
     protected static function getGuzzleClient(string $baseUri, ?string $apiKey = null, ?HandlerStack $handler = null): GuzzleClient
     {
         $config = [
@@ -47,6 +62,13 @@ class Client
         return new GuzzleClient($config);
     }
 
+    /**
+     * Gets the currently authenticated user
+     *
+     * @return User
+     * @throws GuzzleException
+     * @throws UnknownProperties
+     */
     public function getAuthenticatedUser(): User
     {
         return new User(
@@ -59,7 +81,61 @@ class Client
     }
 
     /**
+     * Performs a GET request against the Web Distribution API
+     *
+     * @param string $uri
+     * @param array $query
+     * @return Response
      * @throws GuzzleException
+     */
+    public function get(string $uri, array $query = []): Response
+    {
+        return $this->guzzle->get($uri, [
+            RequestOptions::QUERY => $query,
+        ]);
+    }
+
+    /**
+     * Gets a repository for access company information
+     *
+     * @return CompanyRepository
+     */
+    public function companies(): CompanyRepository
+    {
+        return new CompanyRepository($this);
+    }
+
+    /**
+     * Gets a repository for accessing product information
+     *
+     * @return ProductRepository
+     */
+    public function products(): ProductRepository
+    {
+        return new ProductRepository($this);
+    }
+
+    /**
+     * Performs a standard GET request, but parses the result as a JSON array
+     *
+     * @param string $uri
+     * @param array $query
+     * @return array
+     * @throws GuzzleException
+     */
+    public function getJson(string $uri, array $query = []): array
+    {
+        return json_decode($this->get($uri, $query)->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
+    }
+
+    /**
+     * Authenticates with Web Distribution using regular login credentials (email and password).
+     *
+     * @param string $email
+     * @param string $password
+     * @return User
+     * @throws GuzzleException
+     * @throws UnknownProperties
      */
     public function authenticateWithCredentials(string $email, string $password): User
     {
