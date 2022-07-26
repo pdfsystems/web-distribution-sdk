@@ -7,6 +7,8 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\RequestOptions;
+use Pdfsystems\WebDistributionSdk\Dtos\AbstractDto;
+use Pdfsystems\WebDistributionSdk\Dtos\ApiKey;
 use Pdfsystems\WebDistributionSdk\Dtos\User;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
@@ -103,6 +105,65 @@ class Client
         return $this->guzzle->get($uri, [
             RequestOptions::QUERY => $query,
         ]);
+    }
+
+    /**
+     * @param ApiKey $key
+     * @return ApiKey
+     * @throws GuzzleException
+     * @throws UnknownProperties
+     */
+    public function createApiKey(ApiKey $key): ApiKey
+    {
+        return $this->postDto('api/api-key', $key);
+    }
+
+    /**
+     * @param string $uri
+     * @param AbstractDto|null $dto
+     * @return AbstractDto
+     * @throws GuzzleException
+     * @throws UnknownProperties
+     */
+    public function postDto(string $uri, AbstractDto $dto = null): mixed
+    {
+        $class = get_class($dto);
+
+        return new $class($this->postJson($uri, $dto));
+    }
+
+    /**
+     * @param string $uri
+     * @param array|AbstractDto|null $body
+     * @return array
+     * @throws GuzzleException
+     */
+    public function postJson(string $uri, array|AbstractDto|null $body = null): array
+    {
+        return json_decode($this->post($uri, $body)->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
+    }
+
+    /**
+     * @param string $uri
+     * @param array|AbstractDto|null $body
+     * @return Response
+     * @throws GuzzleException
+     */
+    public function post(string $uri, array|AbstractDto|null $body = null): Response
+    {
+        if ($body instanceof AbstractDto) {
+            $bodyJson = $body->toArray();
+        } else {
+            $bodyJson = $body;
+        }
+
+        $requestOptions = [];
+
+        if (! empty($bodyJson)) {
+            $requestOptions[RequestOptions::JSON] = $bodyJson;
+        }
+
+        return $this->guzzle->post($uri, $requestOptions);
     }
 
     /**
