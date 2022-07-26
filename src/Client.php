@@ -65,16 +65,26 @@ class Client
     /**
      * Gets the currently authenticated user
      *
+     * @param array $options
      * @return User
      * @throws GuzzleException
      * @throws UnknownProperties
      */
-    public function getAuthenticatedUser(): User
+    public function getAuthenticatedUser(array $options = []): User
     {
+        $eagerRelations = [
+            'defaultCompany.currency',
+            'defaultCompany.lines',
+        ];
+
+        if (array_key_exists('include_api_keys', $options) && $options['include_api_keys'] === true) {
+            $eagerRelations[] = 'apiKeys';
+        }
+
         return new User(
             json_decode($this->guzzle->get('api/user/me', [
                 RequestOptions::QUERY => [
-                    'with' => ['defaultCompany.currency', 'defaultCompany.lines'],
+                    'with' => $eagerRelations,
                 ],
             ])->getBody()->getContents(), JSON_OBJECT_AS_ARRAY)
         );
