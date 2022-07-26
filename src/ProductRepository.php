@@ -12,24 +12,34 @@ class ProductRepository extends AbstractRepository
     /**
      * @param Company $company
      * @param callable $callback
+     * @param array $options
      * @param int $perPage
      * @return void
      * @throws GuzzleException
      * @throws UnknownProperties
      */
-    public function iterate(Company $company, callable $callback, int $perPage = 128): void
+    public function iterate(Company $company, callable $callback, array $options = [], int $perPage = 128): void
     {
         $page = 1;
+        $requestOptions = [
+            'with' => [
+                'style.productCategoryCode',
+                'style.primaryPrice',
+                'company',
+                'line',
+            ],
+            'count' => $perPage,
+            'page' => $page++,
+        ];
+
+        if (! empty($options['line_id'])) {
+            $requestOptions['line'] = $options['line_id'];
+        } else {
+            $requestOptions['company'] = $company->id;
+        }
+
         do {
-            $response = $this->client->getJson('api/item', [
-                'with' => [
-                    'style.productCategoryCode',
-                    'style.primaryPrice',
-                ],
-                'company' => $company->id,
-                'count' => $perPage,
-                'page' => $page++,
-            ]);
+            $response = $this->client->getJson('api/item', $requestOptions);
 
             foreach ($response as $product) {
                 $callback(new Product($product));
