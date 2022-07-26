@@ -20,7 +20,14 @@ class ProductRepository extends AbstractRepository
      */
     public function iterate(Company $company, callable $callback, array $options = [], int $perPage = 128): void
     {
-        $page = 1;
+        /**
+         * TODO: Since the current WD API does not allow both company and line to be specified, if the caller of this
+         * function passes in a line_id as part of the $options parameter that is not for the company specified in the
+         * $company parameter, they will receive products that do not match the specified company.
+         * This scenario should probably be addressed by performing a check before loading any products that the company
+         * for the specified line matches the company passed in.
+         */
+
         $requestOptions = [
             'with' => [
                 'style.productCategoryCode',
@@ -29,16 +36,8 @@ class ProductRepository extends AbstractRepository
                 'line',
             ],
             'count' => $perPage,
-            'page' => $page++,
+            'page' => 1,
         ];
-
-        /**
-         * TODO: Since the current WD API does not allow both company and line to be specified, if the caller of this
-         * function passes in a line_id as part of the $options parameter that is not for the company specified in the
-         * $company parameter, they will receive products that do not match the specified company.
-         * This scenario should probably be addressed by performing a check before loading any products that the company
-         * for the specified line matches the company passed in.
-         */
 
         if (! empty($options['line_id'])) {
             $requestOptions['line'] = $options['line_id'];
@@ -52,6 +51,8 @@ class ProductRepository extends AbstractRepository
             foreach ($response as $product) {
                 $callback(new Product($product));
             }
+
+            $requestOptions['page']++;
         } while (! empty($response));
     }
 }
