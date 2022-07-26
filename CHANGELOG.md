@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.2.0 - 2022-07-26
+
+Add ability to filter products by line
+
 ## 1.1.0 - 2022-07-26
 
 Add ability to create and view API keys
