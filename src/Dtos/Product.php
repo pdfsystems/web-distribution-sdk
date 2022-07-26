@@ -18,10 +18,13 @@ class Product extends AbstractDto
     #[MapFrom('style.product_category_code.name')]
     public string $category;
 
+    #[MapFrom('style.content')]
     public ?string $content;
 
+    #[MapFrom('style.width')]
     public ?string $width;
 
+    #[MapFrom('style.repeat')]
     public ?string $repeat;
 
     #[MapFrom('style.primary_price.wholesale_price')]
