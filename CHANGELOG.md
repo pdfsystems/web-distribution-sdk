@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.3.0 - 2022-11-16
+
+Add freight calculations
+
 ## 1.2.1 - 2022-07-26
 
 Fix issue with product paging
