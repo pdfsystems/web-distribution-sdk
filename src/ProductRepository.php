@@ -4,7 +4,9 @@ namespace Pdfsystems\WebDistributionSdk;
 
 use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
+use Pdfsystems\WebDistributionSdk\Dtos\FreightResponse;
 use Pdfsystems\WebDistributionSdk\Dtos\Product;
+use Pdfsystems\WebDistributionSdk\Requests\FreightRequest;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class ProductRepository extends AbstractRepository
@@ -54,5 +56,24 @@ class ProductRepository extends AbstractRepository
 
             $requestOptions['page']++;
         } while (! empty($response));
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws UnknownProperties
+     */
+    public function freight(Product $product, FreightRequest $request): FreightResponse
+    {
+        $request->validate();
+
+        $query = [
+            'postal_code' => $request->postalCode,
+            'quantity' => $request->quantity,
+            'country' => $request->country,
+        ];
+
+        return new FreightResponse(
+            $this->client->getJson('api/item/' . $product->id . '/freight', $query)
+        );
     }
 }
