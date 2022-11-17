@@ -2,10 +2,13 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\FreightResponse;
 use Pdfsystems\WebDistributionSdk\Dtos\Product;
+use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
+use Pdfsystems\WebDistributionSdk\Exceptions\ResponseException;
 use Pdfsystems\WebDistributionSdk\Requests\FreightRequest;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
@@ -56,6 +59,31 @@ class ProductRepository extends AbstractRepository
 
             $requestOptions['page']++;
         } while (! empty($response));
+    }
+
+    /**
+     * @throws UnknownProperties
+     * @throws GuzzleException
+     * @throws ResponseException
+     */
+    public function find(Company $company, string $itemNumber): Product
+    {
+        $requestOptions = [
+            'company' => $company->id,
+            'search' => '#' . $itemNumber,
+            'with' => [
+                'style.productCategoryCode',
+                'style.primaryPrice',
+                'company',
+                'line',
+            ],
+        ];
+        $response = $this->client->getJson('api/item', $requestOptions);
+        if (count($response) > 0) {
+            return new Product($response[0]);
+        } else {
+            throw new NotFoundException();
+        }
     }
 
     /**
