@@ -11,9 +11,9 @@ class FreightResponse extends AbstractDto
     public int $packages;
 
     #[MapFrom('packing_charge')]
-    public int $packingCharge;
+    public float $packingCharge;
 
-    public int $weight;
+    public float $weight;
 
     #[CastWith(ArrayCaster::class, itemType: FreightRate::class)]
     public array $rates;
