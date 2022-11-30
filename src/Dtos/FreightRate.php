@@ -12,5 +12,5 @@ class FreightRate extends AbstractDto
     #[MapFrom("service")]
     public string $serviceName;
 
-    public float $rate;
+    public ?float $rate;
 }
