@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.4.2 - 2022-11-30
+
+- Handle situation where a freight rate is null
+
 ## 1.4.1 - 2022-11-17
 
 Use float for weight and packing charge
