@@ -187,6 +187,16 @@ class Client
     }
 
     /**
+     * Gets a repository for accessing inventory information
+     *
+     * @return InventoryRepository
+     */
+    public function inventory(): InventoryRepository
+    {
+        return new InventoryRepository($this);
+    }
+
+    /**
      * Performs a standard GET request, but parses the result as a JSON array
      *
      * @param string $uri
