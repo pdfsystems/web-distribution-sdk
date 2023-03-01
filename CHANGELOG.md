@@ -2,6 +2,12 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.6.0 - 2023-03-01
+
+- Added ability to load inventory for a given product
+- Added ability to load incoming purchase orders for a given product
+- Added ability to load a company by ID
+
 ## 1.5.0 - 2023-02-24
 
 Added inventory
