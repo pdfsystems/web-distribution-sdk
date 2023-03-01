@@ -8,7 +8,7 @@ use Spatie\DataTransferObject\Caster;
 
 class DateCaster implements Caster
 {
-    public function cast(mixed $value): mixed
+    public function cast(mixed $value): ?DateTimeImmutable
     {
         if (is_string($value)) {
             try {
