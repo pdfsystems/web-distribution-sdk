@@ -3,7 +3,6 @@
 namespace Pdfsystems\WebDistributionSdk\Dtos;
 
 use DateTimeImmutable;
-use Spatie\DataTransferObject\Attributes\CastWith;
 use Spatie\DataTransferObject\Attributes\MapFrom;
 
 class IncomingPurchaseOrder extends AbstractDto
