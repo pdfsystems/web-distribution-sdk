@@ -197,6 +197,16 @@ class Client
     }
 
     /**
+     * Gets a repository for accessing inventory information
+     *
+     * @return PurchaseOrderRepository
+     */
+    public function purchaseOrders(): PurchaseOrderRepository
+    {
+        return new PurchaseOrderRepository($this);
+    }
+
+    /**
      * Performs a standard GET request, but parses the result as a JSON array
      *
      * @param string $uri

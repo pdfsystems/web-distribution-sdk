@@ -38,14 +38,7 @@ class InventoryRepository extends AbstractRepository
      */
     public function listByProduct(Product $product): array
     {
-        $requestOptions = [
-            'with' => [
-                'item.style',
-            ],
-            'item' => $product->id,
-        ];
-
-        $response = $this->client->getJson("api/item/{$product->id}/inventory", $requestOptions);
+        $response = $this->client->getJson("api/item/{$product->id}/inventory");
 
         return array_map(function (array $inventory) use ($product): Inventory {
             return new Inventory([
