@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.8.0 - 2023-03-22
+
+- Added ability to update pieces
+
 ## 1.7.1 - 2023-03-22
 
 - Added units of measure to products
