@@ -33,4 +33,6 @@ class Product extends AbstractDto
     public ?Company $company;
 
     public ?Line $line;
+
+    public ?Book $primary_book;
 }

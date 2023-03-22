@@ -75,6 +75,7 @@ class ProductRepository extends AbstractRepository
                 'style.primaryPrice',
                 'company',
                 'line',
+                'primaryBook',
             ],
         ];
         $response = $this->client->getJson('api/item', $requestOptions);
