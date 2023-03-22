@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.7.0 - 2023-03-22
+
+- Added book information to products
+
 ## 1.6.0 - 2023-03-01
 
 - Added ability to load inventory for a given product
