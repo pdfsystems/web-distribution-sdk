@@ -64,4 +64,15 @@ class InventoryRepository extends AbstractRepository
             ]);
         }, $response);
     }
+
+    /**
+     * @throws UnknownProperties
+     * @throws GuzzleException
+     */
+    public function update(Inventory $piece): Inventory
+    {
+        $this->client->putJson("api/inventory/$piece->id", $piece);
+
+        return $this->findById($piece->id);
+    }
 }

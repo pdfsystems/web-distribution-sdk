@@ -238,4 +238,52 @@ class Client
 
         return $this->getAuthenticatedUser();
     }
+
+    /**
+     * @param string $uri
+     * @param AbstractDto|null $dto
+     * @return AbstractDto
+     * @throws GuzzleException
+     * @throws UnknownProperties
+     */
+    public function putDto(string $uri, AbstractDto $dto = null, array $data = []): mixed
+    {
+        $class = get_class($dto);
+
+        return new $class($this->putJson($uri, array_merge($data, $dto->toArray())));
+    }
+
+    /**
+     * @param string $uri
+     * @param array|AbstractDto|null $body
+     * @return array
+     * @throws GuzzleException
+     */
+    public function putJson(string $uri, array|AbstractDto|null $body = null): array
+    {
+        return json_decode($this->put($uri, $body)->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
+    }
+
+    /**
+     * @param string $uri
+     * @param array|AbstractDto|null $body
+     * @return Response
+     * @throws GuzzleException
+     */
+    public function put(string $uri, array|AbstractDto|null $body = null): Response
+    {
+        if ($body instanceof AbstractDto) {
+            $bodyJson = $body->toArray();
+        } else {
+            $bodyJson = $body;
+        }
+
+        $requestOptions = [];
+
+        if (! empty($bodyJson)) {
+            $requestOptions[RequestOptions::JSON] = $bodyJson;
+        }
+
+        return $this->guzzle->put($uri, $requestOptions);
+    }
 }
