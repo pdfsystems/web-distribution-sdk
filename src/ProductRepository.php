@@ -38,6 +38,9 @@ class ProductRepository extends AbstractRepository
                 'style.primaryPrice',
                 'company',
                 'line',
+                'primaryBook',
+                'style.sellingUnit',
+                'style.millUnit',
             ],
             'count' => $perPage,
             'page' => 1,
@@ -76,6 +79,8 @@ class ProductRepository extends AbstractRepository
                 'company',
                 'line',
                 'primaryBook',
+                'style.sellingUnit',
+                'style.millUnit',
             ],
         ];
         $response = $this->client->getJson('api/item', $requestOptions);

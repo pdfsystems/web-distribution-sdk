@@ -27,6 +27,12 @@ class Product extends AbstractDto
     #[MapFrom('style.repeat')]
     public ?string $repeat;
 
+    #[MapFrom('style.selling_unit.name')]
+    public string $selling_unit;
+
+    #[MapFrom('style.mill_unit.name')]
+    public string $vendor_unit;
+
     #[MapFrom('style.primary_price.wholesale_price')]
     public ?float $price;
 
