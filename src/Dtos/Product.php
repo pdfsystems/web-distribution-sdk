@@ -36,6 +36,11 @@ class Product extends AbstractDto
     #[MapFrom('style.primary_price.wholesale_price')]
     public ?float $price;
 
+    public ?string $warehouse_location;
+
+    #[MapFrom('sample_warehouse_location')]
+    public ?string $warehouse_location_sample;
+
     public ?Company $company;
 
     public ?Line $line;
