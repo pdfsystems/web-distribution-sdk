@@ -207,6 +207,16 @@ class Client
     }
 
     /**
+     * Gets a repository for accessing sample inventory information
+     *
+     * @return SampleInventoryRepository
+     */
+    public function sampleInventory(): SampleInventoryRepository
+    {
+        return new SampleInventoryRepository($this);
+    }
+
+    /**
      * Performs a standard GET request, but parses the result as a JSON array
      *
      * @param string $uri
