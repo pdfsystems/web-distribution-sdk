@@ -2,6 +2,11 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.9.0 - 2023-03-23
+
+- Added ability to get sample inventory on hand
+- Added ability to receive sample inventory
+
 ## 1.8.0 - 2023-03-22
 
 - Added ability to update pieces
