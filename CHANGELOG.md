@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.9.1 - 2023-03-23
+
+- Added warehouse locations to products
+
 ## 1.9.0 - 2023-03-23
 
 - Added ability to get sample inventory on hand
