@@ -40,7 +40,7 @@ class SampleInventoryRepository extends AbstractRepository
      * @throws GuzzleException
      * @throws UnknownProperties
      */
-    public function receive(Product $product, int $warehouseId, int $sampleTypeId, int $quantity = 1, string $adjustmentType = 'R'): SampleInventory
+    public function receive(Product $product, int $warehouseId, int $sampleTypeId, int $quantity = 1, string $adjustmentType = 'R', int $userId = null): SampleInventory
     {
         $requestOptions = [
             'item_id' => $product->id,
@@ -50,6 +50,9 @@ class SampleInventoryRepository extends AbstractRepository
             'adjustment_type' => $adjustmentType,
             'line_id' => $product->line->id,
         ];
+        if (! empty($userId)) {
+            $requestOptions['user_id'] = $userId;
+        }
         $this->client->postJson("api/sample-inventory", $requestOptions);
 
         return $this->getOnHand($product, $warehouseId, $sampleTypeId);
