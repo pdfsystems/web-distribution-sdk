@@ -177,6 +177,16 @@ class Client
     }
 
     /**
+     * Gets a repository for access user information
+     *
+     * @return UserRepository
+     */
+    public function users(): UserRepository
+    {
+        return new UserRepository($this);
+    }
+
+    /**
      * Gets a repository for accessing product information
      *
      * @return ProductRepository
