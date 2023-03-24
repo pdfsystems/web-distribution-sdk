@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.10.1 - 2023-03-24
+
+- Allow user ID to be overridden when receiving samples
+
 ## 1.10.0 - 2023-03-24
 
 - Added ability to load users for a company
