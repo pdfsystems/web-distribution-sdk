@@ -8,6 +8,8 @@ class Product extends AbstractDto
 {
     public int $id;
 
+    public int $style_id;
+
     public string $item_number;
 
     #[MapFrom('style.name')]

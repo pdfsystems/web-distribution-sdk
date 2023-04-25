@@ -95,6 +95,28 @@ class ProductRepository extends AbstractRepository
      * @throws GuzzleException
      * @throws UnknownProperties
      */
+    public function update(Product $product): Product
+    {
+        $this->client->putJson('api/style/' . $product->style_id, [
+            'name' => $product->style_name,
+            'content' => $product->content,
+            'width' => $product->width,
+            'repeat' => $product->repeat,
+        ]);
+        $this->client->putJson('api/item/' . $product->id, [
+            'item_number' => $product->item_number,
+            'color_name' => $product->color_name,
+            'warehouse_location' => $product->warehouse_location,
+            'sample_warehouse_location' => $product->warehouse_location_sample,
+        ]);
+
+        return $this->find($product->company, $product->item_number);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws UnknownProperties
+     */
     public function freight(Product $product, FreightRequest $request): FreightResponse
     {
         $request->validate();
