@@ -2,6 +2,7 @@
 
 namespace Pdfsystems\WebDistributionSdk\Dtos;
 
+use DateTimeImmutable;
 use Spatie\DataTransferObject\Attributes\MapFrom;
 
 class Product extends AbstractDto
@@ -42,6 +43,14 @@ class Product extends AbstractDto
 
     #[MapFrom('sample_warehouse_location')]
     public ?string $warehouse_location_sample;
+
+    #[MapFrom('date_discontinued')]
+    public ?DateTimeImmutable $discontinued_date;
+
+    #[MapFrom('discontinue_code.name')]
+    public ?string $discontinued_reason;
+
+    public ?DateTimeImmutable $deleted_at;
 
     public ?Company $company;
 

@@ -73,10 +73,12 @@ class ProductRepository extends AbstractRepository
         $requestOptions = [
             'company' => $company->id,
             'search' => '#' . $itemNumber,
+            'trashed' => 'true',
             'with' => [
                 'style.productCategoryCode',
                 'style.primaryPrice',
                 'company',
+                'discontinueCode',
                 'line',
                 'primaryBook',
                 'style.sellingUnit',
