@@ -2,6 +2,11 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.12.0 - 2023-05-02
+
+- Added discontinued information to products
+- Added deletion info to products
+
 ## 1.11.0 - 2023-04-25
 
 - Added the ability to update products
