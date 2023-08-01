@@ -226,6 +226,11 @@ class Client
         return new SampleInventoryRepository($this);
     }
 
+    public function transactions(): TransactionRepository
+    {
+        return new TransactionRepository($this);
+    }
+
     /**
      * Performs a standard GET request, but parses the result as a JSON array
      *
