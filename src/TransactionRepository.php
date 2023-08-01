@@ -29,6 +29,7 @@ class TransactionRepository extends AbstractRepository
                 'items.item.style.productCategoryCode',
                 'items.item.style.sellingUnit',
                 'items.item.style.millUnit',
+                'items.allocatedPieces.piece.warehouse',
                 'shipToCountry',
                 'shipToState',
             ],

@@ -2,7 +2,9 @@
 
 namespace Pdfsystems\WebDistributionSdk\Dtos;
 
+use Spatie\DataTransferObject\Attributes\CastWith;
 use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\Casters\ArrayCaster;
 
 class TransactionItem extends AbstractDto
 {
@@ -18,4 +20,8 @@ class TransactionItem extends AbstractDto
 
     #[MapFrom('v_extension')]
     public float $extension;
+
+    #[MapFrom('allocated_pieces')]
+    #[CastWith(ArrayCaster::class, itemType: Allocation::class)]
+    public array $pieces;
 }
