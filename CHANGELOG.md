@@ -2,6 +2,12 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.13.0 - 2023-08-02
+
+- Added ability to load order info
+- Added ability to unallocate orders
+- Added ability to allocate orders to a single piece
+
 ## 1.12.0 - 2023-05-02
 
 - Added discontinued information to products
