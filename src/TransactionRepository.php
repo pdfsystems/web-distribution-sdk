@@ -5,7 +5,9 @@ namespace Pdfsystems\WebDistributionSdk;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
+use Pdfsystems\WebDistributionSdk\Dtos\Inventory;
 use Pdfsystems\WebDistributionSdk\Dtos\Transaction;
+use Pdfsystems\WebDistributionSdk\Dtos\TransactionItem;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
@@ -45,5 +47,23 @@ class TransactionRepository extends AbstractRepository
         } catch (RequestException) {
             throw new NotFoundException("Transaction with number $transactionNumber not found");
         }
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function unallocate(TransactionItem $item): void
+    {
+        $this->client->post("api/transaction-item/$item->id/unallocate");
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function allocateSingle(TransactionItem $item, Inventory $piece): void
+    {
+        $this->client->post("api/transaction-item/$item->id/reallocate", [
+            $piece->id => $item->quantity_ordered,
+        ]);
     }
 }
