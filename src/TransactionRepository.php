@@ -52,9 +52,14 @@ class TransactionRepository extends AbstractRepository
     /**
      * @throws GuzzleException
      */
-    public function unallocate(TransactionItem $item): void
+    public function unallocate(TransactionItem|int $item): void
     {
-        $this->client->post("api/transaction-item/$item->id/unallocate");
+        if (is_int($item)) {
+            $this->client->post("api/transaction-item/$item/unallocate");
+        } else {
+            $this->client->post("api/transaction-item/$item->id/unallocate");
+        }
+
     }
 
     /**
@@ -62,8 +67,16 @@ class TransactionRepository extends AbstractRepository
      */
     public function allocateSingle(TransactionItem $item, Inventory $piece): void
     {
-        $this->client->post("api/transaction-item/$item->id/reallocate", [
-            $piece->id => $item->quantity_ordered,
+        $this->allocateSingleId($item->id, $piece->id, $item->quantity_ordered);
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function allocateSingleId(int $itemId, int $pieceId, float $quantity): void
+    {
+        $this->client->post("api/transaction-item/$itemId/reallocate", [
+            $pieceId => $quantity,
         ]);
     }
 }
