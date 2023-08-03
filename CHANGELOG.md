@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.14.0 - 2023-08-03
+
+- Added transaction holds
+
 ## 1.13.1 - 2023-08-03
 
 - Added ability to unallocate/allocate pieces by IDs alone (without needing a DTO)
