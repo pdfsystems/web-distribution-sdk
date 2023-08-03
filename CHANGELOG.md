@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.13.1 - 2023-08-03
+
+- Added ability to unallocate/allocate pieces by IDs alone (without needing a DTO)
+
 ## 1.13.0 - 2023-08-02
 
 - Added ability to load order info
