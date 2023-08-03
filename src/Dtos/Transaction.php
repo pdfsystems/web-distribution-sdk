@@ -42,4 +42,7 @@ class Transaction extends AbstractDto
     #[CastWith(ArrayCaster::class, itemType: TransactionItem::class)]
     public array $items;
 
+    #[CastWith(ArrayCaster::class, itemType: TransactionHold::class)]
+    public array $holds = [];
+
 }
