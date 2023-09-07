@@ -4,6 +4,7 @@ namespace Pdfsystems\WebDistributionSdk;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
+use Pdfsystems\WebDistributionSdk\Dtos\Allocation;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\Inventory;
 use Pdfsystems\WebDistributionSdk\Dtos\Transaction;
@@ -60,7 +61,6 @@ class TransactionRepository extends AbstractRepository
         } else {
             $this->client->post("api/transaction-item/$item->id/unallocate");
         }
-
     }
 
     /**
@@ -76,8 +76,36 @@ class TransactionRepository extends AbstractRepository
      */
     public function allocateSingleId(int $itemId, int $pieceId, float $quantity): void
     {
-        $this->client->post("api/transaction-item/$itemId/reallocate", [
+        $this->allocateId($itemId, [
             $pieceId => $quantity,
         ]);
+    }
+
+    /**
+     * @param TransactionItem $item
+     * @param Allocation[] $allocations
+     * @return void
+     * @throws GuzzleException
+     */
+    public function allocate(TransactionItem $item, array $allocations): void
+    {
+        $allocationMap = [];
+
+        foreach ($allocations as $allocation) {
+            $allocationMap[$allocation->inventory_id] = $allocation->quantity;
+        }
+
+        $this->allocateId($item->id, $allocationMap);
+    }
+
+    /**
+     * @param int $itemId
+     * @param array $allocations
+     * @return void
+     * @throws GuzzleException
+     */
+    public function allocateId(int $itemId, array $allocations): void
+    {
+        $this->client->post("api/transaction-item/$itemId/reallocate", $allocations);
     }
 }
