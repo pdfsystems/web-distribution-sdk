@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.16.0 - 2023-09-25
+
+Added ability to load products by ID directly
+
 ## 1.15.0 - 2023-09-07
 
 Added ability to allocate to multiple pieces
