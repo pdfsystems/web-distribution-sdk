@@ -113,8 +113,10 @@ class ProductRepository extends AbstractRepository
                 'style.millUnit',
             ],
         ];
+
         try {
             $response = $this->client->getJson("api/item/$id", $requestOptions);
+
             return new Product($response);
         } catch (BadResponseException) {
             throw new NotFoundException();
