@@ -2,6 +2,7 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
+use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\FreightResponse;
@@ -89,6 +90,33 @@ class ProductRepository extends AbstractRepository
         if (count($response) > 0) {
             return new Product($response[0]);
         } else {
+            throw new NotFoundException();
+        }
+    }
+
+    /**
+     * @throws UnknownProperties
+     * @throws GuzzleException
+     * @throws ResponseException
+     */
+    public function findById(int $id): Product
+    {
+        $requestOptions = [
+            'with' => [
+                'style.productCategoryCode',
+                'style.primaryPrice',
+                'company',
+                'discontinueCode',
+                'line',
+                'primaryBook',
+                'style.sellingUnit',
+                'style.millUnit',
+            ],
+        ];
+        try {
+            $response = $this->client->getJson("api/item/$id", $requestOptions);
+            return new Product($response);
+        } catch (BadResponseException) {
             throw new NotFoundException();
         }
     }
