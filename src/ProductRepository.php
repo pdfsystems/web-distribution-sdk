@@ -113,6 +113,7 @@ class ProductRepository extends AbstractRepository
                 'style.millUnit',
             ],
         ];
+
         try {
             return new Product(
                 $this->client->getJson("api/item/$id", $requestOptions)
