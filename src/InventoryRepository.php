@@ -67,6 +67,7 @@ class InventoryRepository extends AbstractRepository
                 'vendor_piece' => $inventory['mill_piece'],
                 'quantity_on_hand' => $inventory['on_hand'],
                 'quantity_available' => $inventory['on_hand'] - $inventory['allocated'],
+                'created_at' => $inventory['created_at'],
             ]);
         }, $response);
     }

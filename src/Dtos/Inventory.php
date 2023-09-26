@@ -2,6 +2,7 @@
 
 namespace Pdfsystems\WebDistributionSdk\Dtos;
 
+use DateTimeImmutable;
 use Spatie\DataTransferObject\Attributes\MapFrom;
 
 class Inventory extends AbstractDto
@@ -20,6 +21,9 @@ class Inventory extends AbstractDto
     public string $lot;
 
     public string $piece;
+
+    #[MapFrom('created_at')]
+    public ?DateTimeImmutable $date_received;
 
     public ?Warehouse $warehouse;
 
