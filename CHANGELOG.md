@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.16.2 - 2023-09-26
+
+Added date received to inventory
+
 ## 1.16.1 - 2023-09-26
 
 Added warehouse info to inventory
