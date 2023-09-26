@@ -21,6 +21,8 @@ class Inventory extends AbstractDto
 
     public string $piece;
 
+    public ?Warehouse $warehouse;
+
     public ?string $warehouse_location;
 
     public bool $active;

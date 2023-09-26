@@ -20,6 +20,7 @@ class InventoryRepository extends AbstractRepository
         $requestOptions = [
             'with' => [
                 'item.style',
+                'warehouse',
             ],
         ];
 
@@ -52,6 +53,11 @@ class InventoryRepository extends AbstractRepository
                 ],
                 'lot' => $inventory['lot'],
                 'piece' => $inventory['piece'],
+                'warehouse' => [
+                    'id' => $inventory['warehouse_id'],
+                    'code' => $inventory['warehouse_code'],
+                    'name' => $inventory['warehouse_name'],
+                ],
                 'warehouse_location' => $inventory['warehouse_location'],
                 'active' => true,
                 'approved' => true,
