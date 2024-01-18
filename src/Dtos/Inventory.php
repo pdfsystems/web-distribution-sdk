@@ -16,7 +16,7 @@ class Inventory extends AbstractDto
     public string $style_name;
 
     #[MapFrom('item.color_name')]
-    public string $color_name;
+    public ?string $color_name;
 
     public string $lot;
 
