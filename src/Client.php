@@ -146,6 +146,18 @@ class Client
     /**
      * @param string $uri
      * @param array|AbstractDto|null $body
+     * @param string $dtoClass
+     * @return AbstractDto
+     * @throws GuzzleException
+     */
+    public function postJsonAsDto(string $uri, array|AbstractDto|null $body = null, string $dtoClass): AbstractDto
+    {
+        return new $dtoClass($this->postJson($uri, $body));
+    }
+
+    /**
+     * @param string $uri
+     * @param array|AbstractDto|null $body
      * @return Response
      * @throws GuzzleException
      */
