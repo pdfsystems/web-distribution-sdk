@@ -3,6 +3,7 @@
 namespace Pdfsystems\WebDistributionSdk;
 
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Uri;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\ProjectUser;
 use Pdfsystems\WebDistributionSdk\Dtos\User;
@@ -42,5 +43,14 @@ class UserRepository extends AbstractRepository
             'rep_code' => $repCode,
             'name' => $name,
         ], ProjectUser::class);
+    }
+
+    /**
+     * @param string $token
+     * @return Uri
+     */
+    public function getSsoLoginUri(string $token): Uri
+    {
+        return $this->client->getUri("login-sso", compact('token'));
     }
 }

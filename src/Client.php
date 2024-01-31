@@ -6,6 +6,7 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\RequestOptions;
 use Pdfsystems\WebDistributionSdk\Dtos\AbstractDto;
 use Pdfsystems\WebDistributionSdk\Dtos\ApiKey;
@@ -18,6 +19,16 @@ class Client
 
     public function __construct(protected string $baseUri = 'https://distribution.pdfsystems.com', protected ?HandlerStack $handler = null)
     {
+    }
+
+    public function getBaseUri(): Uri
+    {
+        return new Uri($this->baseUri);
+    }
+
+    public function getUri(string $path, array $query = []): Uri
+    {
+        return $this->getBaseUri()->withPath($path)->withQuery(http_build_query($query));
     }
 
     /**
