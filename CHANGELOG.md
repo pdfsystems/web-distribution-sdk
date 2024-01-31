@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.17.0 - 2024-01-31
+
+Added support for project users
+
 ## 1.16.3 - 2024-01-18
 
 Allow null color names with inventory
