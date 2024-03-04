@@ -37,6 +37,8 @@ class Inventory extends AbstractDto
 
     public bool $seconds;
 
+    public bool $export_to_ordertrack = true;
+
     public ?string $comment;
 
     #[MapFrom('mill_piece')]

@@ -63,6 +63,7 @@ class InventoryRepository extends AbstractRepository
                 'approved' => true,
                 'pre_receipt' => false,
                 'seconds' => $inventory['seconds'] === 1,
+                'export_to_ordertrack' => ($inventory['export_to_ordertrack'] ?? 0) === 1,
                 'comment' => $inventory['comment'],
                 'vendor_piece' => $inventory['mill_piece'],
                 'quantity_on_hand' => $inventory['on_hand'],
