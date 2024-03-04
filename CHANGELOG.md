@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.18.0 - 2024-03-04
+
+Added OT export flag to inventory DTOs
+
 ## 1.17.0 - 2024-01-31
 
 Added support for project users
