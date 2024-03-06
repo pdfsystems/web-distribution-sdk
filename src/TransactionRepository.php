@@ -71,6 +71,21 @@ class TransactionRepository extends AbstractRepository
     }
 
     /**
+     * URI that can be used to redirect the user to the customer portal for the supplied transaction.
+     * Note that this requires the company in question to subscribe to the portal pages in Web Distribution.
+     *
+     * @param Transaction $transaction
+     * @return Uri
+     */
+    public function getPortalUri(Transaction $transaction): Uri
+    {
+        return $this->client->getBaseUri()->withPath("/client/transaction/landing")->withQuery(http_build_query([
+            'id' => $transaction->id,
+            'key' => $transaction->client_auth_key,
+        ]));
+    }
+
+    /**
      * @throws GuzzleException
      */
     public function unallocate(TransactionItem|int $item): void
