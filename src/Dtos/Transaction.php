@@ -39,6 +39,8 @@ class Transaction extends AbstractDto
 
     public ?string $ship_to_email;
 
+    public ?string $client_auth_key = null;
+
     #[CastWith(ArrayCaster::class, itemType: TransactionItem::class)]
     public array $items;
 
