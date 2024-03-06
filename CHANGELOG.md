@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.19.0 - 2024-03-06
+
+Added function for generating payment URIs for transactions
+
 ## 1.18.0 - 2024-03-04
 
 Added OT export flag to inventory DTOs
