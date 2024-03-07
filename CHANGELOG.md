@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 1.20.0 - 2024-03-07
+
+Add order portal URIs
+
 ## 1.19.0 - 2024-03-06
 
 Added function for generating payment URIs for transactions
