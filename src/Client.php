@@ -2,23 +2,58 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
+use Composer\InstalledVersions;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\RequestOptions;
-use Pdfsystems\WebDistributionSdk\Dtos\AbstractDto;
 use Pdfsystems\WebDistributionSdk\Dtos\ApiKey;
 use Pdfsystems\WebDistributionSdk\Dtos\User;
+use Rpungello\SdkClient\SdkClient;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
-class Client
+class Client extends SdkClient
 {
     protected ?GuzzleClient $guzzle;
 
-    public function __construct(protected string $baseUri = 'https://distribution.pdfsystems.com', protected ?HandlerStack $handler = null)
+    /**
+     * @throws GuzzleException
+     */
+    public function __construct(protected array $credentials, protected string $baseUri = 'https://distribution.pdfsystems.com', protected ?HandlerStack $handler = null)
     {
+        parent::__construct($this->baseUri, $handler, static::getUserAgent(), cookies: static::requiresCookies($this->credentials));
+
+        if (! empty($this->credentials['email']) && ! empty($this->credentials['password'])) {
+            $this->guzzle->post('login', [
+                RequestOptions::JSON => $this->credentials,
+            ]);
+        }
+    }
+
+    private static function getUserAgent(): string
+    {
+        return 'Web Distribution SDK/' . static::getVersion();
+    }
+
+    private static function getVersion(): string
+    {
+        return InstalledVersions::getVersion('pdf-systems-inc/web-distribution-sdk');
+    }
+
+    private static function requiresCookies(array $credentials): bool
+    {
+        return ! empty($credentials['email']) && ! empty($credentials['password']);
+    }
+
+    protected function getGuzzleClientConfig(): array
+    {
+        $config = parent::getGuzzleClientConfig();
+        if (! empty($this->credentials['token'])) {
+            $config['headers']['x-api-key'] = $this->credentials['token'];
+        }
+
+        return $config;
     }
 
     public function getBaseUri(): Uri
@@ -29,50 +64,6 @@ class Client
     public function getUri(string $path, array $query = []): Uri
     {
         return $this->getBaseUri()->withPath($path)->withQuery(http_build_query($query));
-    }
-
-    /**
-     * Authenticates with Web Distribution using an API key.
-     *
-     * @param string $apiKey
-     * @return User
-     * @throws GuzzleException
-     * @throws UnknownProperties
-     */
-    public function authenticateWithApiKey(string $apiKey): User
-    {
-        $this->guzzle = static::getGuzzleClient($this->baseUri, $apiKey, $this->handler);
-
-        return $this->getAuthenticatedUser();
-    }
-
-    /**
-     * Instantiates a new Guzzle client, which will be used when interfacing with the Web Distribution API.
-     *
-     * @param string $baseUri
-     * @param string|null $apiKey
-     * @param HandlerStack|null $handler
-     * @return GuzzleClient
-     */
-    protected static function getGuzzleClient(string $baseUri, ?string $apiKey = null, ?HandlerStack $handler = null): GuzzleClient
-    {
-        $config = [
-            'base_uri' => $baseUri,
-            'cookies' => true,
-            'headers' => [
-                'accept' => 'application/json',
-            ],
-        ];
-
-        if (! is_null($apiKey)) {
-            $config['headers']['x-api-key'] = $apiKey;
-        }
-
-        if (! is_null($handler)) {
-            $config['handler'] = $handler;
-        }
-
-        return new GuzzleClient($config);
     }
 
     /**
@@ -104,21 +95,6 @@ class Client
     }
 
     /**
-     * Performs a GET request against the Web Distribution API
-     *
-     * @param string $uri
-     * @param array $query
-     * @return Response
-     * @throws GuzzleException
-     */
-    public function get(string $uri, array $query = []): Response
-    {
-        return $this->guzzle->get($uri, [
-            RequestOptions::QUERY => $query,
-        ]);
-    }
-
-    /**
      * @param ApiKey $key
      * @return ApiKey
      * @throws GuzzleException
@@ -127,66 +103,6 @@ class Client
     public function createApiKey(ApiKey $key): ApiKey
     {
         return $this->postDto('api/api-key', $key);
-    }
-
-    /**
-     * @param string $uri
-     * @param AbstractDto|null $dto
-     * @return AbstractDto
-     * @throws GuzzleException
-     * @throws UnknownProperties
-     */
-    public function postDto(string $uri, AbstractDto $dto = null): mixed
-    {
-        $class = get_class($dto);
-
-        return new $class($this->postJson($uri, $dto));
-    }
-
-    /**
-     * @param string $uri
-     * @param array|AbstractDto|null $body
-     * @return array
-     * @throws GuzzleException
-     */
-    public function postJson(string $uri, array|AbstractDto|null $body = null): array
-    {
-        return json_decode($this->post($uri, $body)->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
-    }
-
-    /**
-     * @param string $uri
-     * @param array|AbstractDto|null $body
-     * @param string $dtoClass
-     * @return AbstractDto
-     * @throws GuzzleException
-     */
-    public function postJsonAsDto(string $uri, array|AbstractDto|null $body = null, string $dtoClass): AbstractDto
-    {
-        return new $dtoClass($this->postJson($uri, $body));
-    }
-
-    /**
-     * @param string $uri
-     * @param array|AbstractDto|null $body
-     * @return Response
-     * @throws GuzzleException
-     */
-    public function post(string $uri, array|AbstractDto|null $body = null): Response
-    {
-        if ($body instanceof AbstractDto) {
-            $bodyJson = $body->toArray();
-        } else {
-            $bodyJson = $body;
-        }
-
-        $requestOptions = [];
-
-        if (! empty($bodyJson)) {
-            $requestOptions[RequestOptions::JSON] = $bodyJson;
-        }
-
-        return $this->guzzle->post($uri, $requestOptions);
     }
 
     /**
@@ -252,86 +168,5 @@ class Client
     public function transactions(): TransactionRepository
     {
         return new TransactionRepository($this);
-    }
-
-    /**
-     * Performs a standard GET request, but parses the result as a JSON array
-     *
-     * @param string $uri
-     * @param array $query
-     * @return array
-     * @throws GuzzleException
-     */
-    public function getJson(string $uri, array $query = []): array
-    {
-        return json_decode($this->get($uri, $query)->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
-    }
-
-    /**
-     * Authenticates with Web Distribution using regular login credentials (email and password).
-     *
-     * @param string $email
-     * @param string $password
-     * @return User
-     * @throws GuzzleException
-     * @throws UnknownProperties
-     */
-    public function authenticateWithCredentials(string $email, string $password): User
-    {
-        $this->guzzle = static::getGuzzleClient($this->baseUri, handler: $this->handler);
-
-        $this->guzzle->post('login', [
-            RequestOptions::JSON => compact('email', 'password'),
-        ]);
-
-        return $this->getAuthenticatedUser();
-    }
-
-    /**
-     * @param string $uri
-     * @param AbstractDto|null $dto
-     * @return AbstractDto
-     * @throws GuzzleException
-     * @throws UnknownProperties
-     */
-    public function putDto(string $uri, AbstractDto $dto = null, array $data = []): mixed
-    {
-        $class = get_class($dto);
-
-        return new $class($this->putJson($uri, array_merge($data, $dto->toArray())));
-    }
-
-    /**
-     * @param string $uri
-     * @param array|AbstractDto|null $body
-     * @return array
-     * @throws GuzzleException
-     */
-    public function putJson(string $uri, array|AbstractDto|null $body = null): array
-    {
-        return json_decode($this->put($uri, $body)->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
-    }
-
-    /**
-     * @param string $uri
-     * @param array|AbstractDto|null $body
-     * @return Response
-     * @throws GuzzleException
-     */
-    public function put(string $uri, array|AbstractDto|null $body = null): Response
-    {
-        if ($body instanceof AbstractDto) {
-            $bodyJson = $body->toArray();
-        } else {
-            $bodyJson = $body;
-        }
-
-        $requestOptions = [];
-
-        if (! empty($bodyJson)) {
-            $requestOptions[RequestOptions::JSON] = $bodyJson;
-        }
-
-        return $this->guzzle->put($uri, $requestOptions);
     }
 }
