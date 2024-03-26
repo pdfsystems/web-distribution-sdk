@@ -10,13 +10,6 @@ use Pdfsystems\WebDistributionSdk\Dtos\Line;
 use Pdfsystems\WebDistributionSdk\Dtos\User;
 
 it('can load a list of companies', function () {
-    $mockUser = new User(
-        id: 1,
-        initials: 'ABC',
-        name: 'John Smith',
-        email: 'john@example.com'
-    );
-
     $mockCompany = new Company(
         id: 1,
         name: 'Team Designers and Associates',
@@ -34,16 +27,14 @@ it('can load a list of companies', function () {
         ]
     );
     $mock = new MockHandler([
-        new Response(200, ['content-type' => 'application/json'], $mockUser->toJson()),
         new Response(200, ['content-type' => 'application/json'], json_encode([$mockCompany->toArray()])),
     ]);
-    $client = new Client(handler: HandlerStack::create($mock));
-    $client->authenticateWithApiKey('foobar');
+    $client = new Client(['token' => 'foobar'], handler: HandlerStack::create($mock));
 
     $response = $client->companies()->list();
 
-    expect($response)->toBeArray();
-    expect($response[0])->toBeInstanceOf(Company::class);
-    expect($response[0]->id)->toBe(1);
-    expect($response[0]->name)->toBe('Team Designers and Associates');
+    expect($response)->toBeArray()
+        ->and($response[0])->toBeInstanceOf(Company::class)
+        ->and($response[0]->id)->toBe(1)
+        ->and($response[0]->name)->toBe('Team Designers and Associates');
 });
