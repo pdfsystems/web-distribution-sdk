@@ -13,8 +13,12 @@ class PurchaseOrderRepository extends AbstractRepository
      * @throws UnknownProperties
      * @throws GuzzleException
      */
-    public function listByProduct(Product $product): array
+    public function listByProduct(Product|int $product): array
     {
+        if (is_int($product)) {
+            $product = $this->client->products()->findById($product);
+        }
+
         $response = $this->client->getJson("api/item/{$product->id}/purchase-orders");
 
         return array_map(fn (array $purchaseOrder) => new IncomingPurchaseOrder($purchaseOrder), $response);

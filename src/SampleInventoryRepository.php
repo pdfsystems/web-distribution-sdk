@@ -10,7 +10,7 @@ use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 class SampleInventoryRepository extends AbstractRepository
 {
     /**
-     * @param Product $product
+     * @param Product|int $product
      * @param int $warehouseId
      * @param int $sampleTypeId
      *
@@ -18,8 +18,12 @@ class SampleInventoryRepository extends AbstractRepository
      * @throws GuzzleException
      * @throws UnknownProperties
      */
-    public function getOnHand(Product $product, int $warehouseId, int $sampleTypeId): SampleInventory
+    public function getOnHand(Product|int $product, int $warehouseId, int $sampleTypeId): SampleInventory
     {
+        if (is_int($product)) {
+            $product = $this->client->products()->findById($product);
+        }
+
         $requestOptions = [
             'warehouse_id' => $warehouseId,
             'sample_type_id' => $sampleTypeId,
@@ -30,18 +34,22 @@ class SampleInventoryRepository extends AbstractRepository
     }
 
     /**
-     * @param Product $product
+     * @param Product|int $product
      * @param int $warehouseId
      * @param int $sampleTypeId
      * @param int $quantity
      * @param string $adjustmentType R = Receive, A = Adjust, P = Physical, S = Shipment, L = Release
-     *
+     * @param int|null $userId
      * @return SampleInventory
      * @throws GuzzleException
      * @throws UnknownProperties
      */
-    public function receive(Product $product, int $warehouseId, int $sampleTypeId, int $quantity = 1, string $adjustmentType = 'R', ?int $userId = null): SampleInventory
+    public function receive(Product|int $product, int $warehouseId, int $sampleTypeId, int $quantity = 1, string $adjustmentType = 'R', ?int $userId = null): SampleInventory
     {
+        if (is_int($product)) {
+            $product = $this->client->products()->findById($product);
+        }
+
         $requestOptions = [
             'item_id' => $product->id,
             'warehouse_id' => $warehouseId,
