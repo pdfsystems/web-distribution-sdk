@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.0.0 - 2024-03-26
+
+Migrate to using rpungello/sdk-client
+
 ## 1.20.0 - 2024-03-07
 
 Add order portal URIs
