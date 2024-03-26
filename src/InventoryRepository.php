@@ -37,8 +37,12 @@ class InventoryRepository extends AbstractRepository
      * @throws UnknownProperties
      * @throws GuzzleException
      */
-    public function listByProduct(Product $product): array
+    public function listByProduct(Product|int $product): array
     {
+        if (is_int($product)) {
+            $product = $this->client->products()->findById($product);
+        }
+
         $response = $this->client->getJson("api/item/{$product->id}/inventory");
 
         return array_map(function (array $inventory) use ($product): Inventory {

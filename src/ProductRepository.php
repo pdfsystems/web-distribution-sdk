@@ -149,9 +149,13 @@ class ProductRepository extends AbstractRepository
      * @throws GuzzleException
      * @throws UnknownProperties
      */
-    public function freight(Product $product, FreightRequest $request): FreightResponse
+    public function freight(Product|int $product, FreightRequest $request): FreightResponse
     {
         $request->validate();
+
+        if (is_int($product)) {
+            $product = $this->findById($product);
+        }
 
         $query = [
             'postal_code' => $request->postalCode,
