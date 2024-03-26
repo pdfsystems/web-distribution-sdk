@@ -1,5 +1,6 @@
 {
     "name": "pdf-systems-inc/web-distribution-sdk",
+    "version": "1.20.0",
     "description": "PHP SDK for Web Distribution",
     "keywords": [
         "pdf-systems-inc",
