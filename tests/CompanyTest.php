@@ -7,7 +7,6 @@ use Pdfsystems\WebDistributionSdk\Client;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\Currency;
 use Pdfsystems\WebDistributionSdk\Dtos\Line;
-use Pdfsystems\WebDistributionSdk\Dtos\User;
 
 it('can load a list of companies', function () {
     $mockCompany = new Company(
