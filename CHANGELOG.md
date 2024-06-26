@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.1.1 - 2024-06-26
+
+Minor improvements
+
 ## 2.1.0 - 2024-06-26
 
 Add vendor info to products
