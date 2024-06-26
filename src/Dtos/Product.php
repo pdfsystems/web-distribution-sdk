@@ -56,5 +56,8 @@ class Product extends AbstractDto
 
     public ?Line $line;
 
+    #[MapFrom('style.vendor')]
+    public ?Vendor $vendor;
+
     public ?Book $primary_book;
 }

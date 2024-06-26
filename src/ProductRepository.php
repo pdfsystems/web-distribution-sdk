@@ -84,6 +84,7 @@ class ProductRepository extends AbstractRepository
                 'primaryBook',
                 'style.sellingUnit',
                 'style.millUnit',
+                'style.vendor',
             ],
         ];
         $response = $this->client->getJson('api/item', $requestOptions);
@@ -111,6 +112,7 @@ class ProductRepository extends AbstractRepository
                 'primaryBook',
                 'style.sellingUnit',
                 'style.millUnit',
+                'style.vendor',
             ],
         ];
 
