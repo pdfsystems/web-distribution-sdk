@@ -166,7 +166,7 @@ class ProductRepository extends AbstractRepository
         ];
 
         return new FreightResponse(
-            $this->client->getJson('api/item/' . $product . '/freight', $query)
+            $this->client->getJson("api/item/$product/freight", $query)
         );
     }
 }
