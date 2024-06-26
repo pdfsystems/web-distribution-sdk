@@ -155,8 +155,8 @@ class ProductRepository extends AbstractRepository
     {
         $request->validate();
 
-        if (is_int($product)) {
-            $product = $this->findById($product);
+        if ($product instanceof Product) {
+            $product = $product->id;
         }
 
         $query = [
@@ -166,7 +166,7 @@ class ProductRepository extends AbstractRepository
         ];
 
         return new FreightResponse(
-            $this->client->getJson('api/item/' . $product->id . '/freight', $query)
+            $this->client->getJson('api/item/' . $product . '/freight', $query)
         );
     }
 }
