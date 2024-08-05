@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.3.0 - 2024-08-05
+
+Add some transaction + rep fields
+
 ## 2.2.2 - 2024-08-05
 
 Improve transaction relation handling
