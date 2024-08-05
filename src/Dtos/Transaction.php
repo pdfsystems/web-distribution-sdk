@@ -16,6 +16,10 @@ class Transaction extends AbstractDto
     #[MapFrom('full_transaction_number')]
     public ?string $transaction_number;
 
+    public ?Rep $rep1;
+
+    public ?Rep $rep2;
+
     public ?Customer $customer;
 
     public ?Customer $specifier;

@@ -192,6 +192,7 @@ class TransactionRepository extends AbstractRepository
             'items.item.style.productCategoryCode',
             'items.item.style.sellingUnit',
             'rep1',
+            'rep2',
             'shipToCountry',
             'shipToState',
             'specifier.country',
