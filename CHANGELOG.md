@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.2.2 - 2024-08-05
+
+Improve transaction relation handling
+
 ## 2.2.1 - 2024-08-05
 
 Fix version
