@@ -169,4 +169,14 @@ class Client extends SdkClient
     {
         return new TransactionRepository($this);
     }
+
+    public function lines(): LineRepository
+    {
+        return new LineRepository($this);
+    }
+
+    public function reps(): RepRepository
+    {
+        return new RepRepository($this);
+    }
 }
