@@ -24,7 +24,7 @@ class TransactionRepository extends AbstractRepository
     public function findById(int $id): Transaction
     {
         try {
-            $response = $this->client->getJson("api/transaction/$id", ['with' => $this->getFindRelations()]);
+            $response = $this->client->getJson("api/transaction/$id", ['with' => $this->getRelations()]);
 
             return new Transaction($response);
         } catch (RequestException) {
@@ -38,10 +38,19 @@ class TransactionRepository extends AbstractRepository
      */
     public function iterate(Company $company, callable $callback, array $options = [], int $perPage = 128): void
     {
+        if (array_key_exists('with', $options)) {
+            $relations = $this->getRelations($options['with']);
+            unset($options['with']);
+        } else {
+            $relations = $this->getRelations();
+        }
+
+
         $requestOptions = array_merge([
             'count' => $perPage,
             'page' => 1,
             'company' => $company->id,
+            'with' => $relations,
         ], $options);
 
         do {
@@ -62,7 +71,7 @@ class TransactionRepository extends AbstractRepository
     public function findByTransactionNumber(Company $company, string $transactionNumber): Transaction
     {
         $requestOptions = [
-            'with' => $this->getFindRelations(),
+            'with' => $this->getRelations(),
             'company' => $company->id,
             'transaction_number' => $transactionNumber,
             'transaction_number_exact' => true,
@@ -171,9 +180,9 @@ class TransactionRepository extends AbstractRepository
      *
      * @return string[]
      */
-    private function getFindRelations(): array
+    private function getRelations(array $extras = []): array
     {
-        return [
+        return array_merge($extras, [
             'customer.country',
             'customer.primaryAddress.country',
             'customer.primaryAddress.state',
@@ -188,6 +197,6 @@ class TransactionRepository extends AbstractRepository
             'specifier.country',
             'specifier.primaryAddress.country',
             'specifier.primaryAddress.state',
-        ];
+        ]);
     }
 }
