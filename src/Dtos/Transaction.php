@@ -58,4 +58,6 @@ class Transaction extends AbstractDto
 
     public ?DateTimeImmutable $job_closed_on = null;
 
+    public array $custom_fields = [];
+
 }
