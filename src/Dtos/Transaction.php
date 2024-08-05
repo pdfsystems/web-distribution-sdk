@@ -11,6 +11,8 @@ class Transaction extends AbstractDto
 {
     public ?int $id;
 
+    public ?User $user;
+
     public ?DateTimeImmutable $created_at;
 
     #[MapFrom('full_transaction_number')]

@@ -198,6 +198,7 @@ class TransactionRepository extends AbstractRepository
             'specifier.country',
             'specifier.primaryAddress.country',
             'specifier.primaryAddress.state',
+            'user',
         ]);
     }
 }
