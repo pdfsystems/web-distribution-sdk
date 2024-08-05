@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.5.1 - 2024-08-05
+
+Add user to transactions
+
 ## 2.5.0 - 2024-08-05
 
 Add the ability to create reports
