@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.2.1 - 2024-08-05
+
+Fix version
+
 ## 2.2.0 - 2024-08-05
 
 - Added support for listing lines & reps
