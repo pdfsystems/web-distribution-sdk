@@ -36,6 +36,29 @@ class TransactionRepository extends AbstractRepository
      * @throws UnknownProperties
      * @throws GuzzleException
      */
+    public function iterate(Company $company, callable $callback, array $options = [], int $perPage = 128): void
+    {
+        $requestOptions = array_merge([
+            'count' => $perPage,
+            'page' => 1,
+            'company' => $company->id,
+        ], $options);
+
+        do {
+            $response = $this->client->getDtoArray('api/transaction', Transaction::class, $requestOptions);
+
+            foreach ($response as $transaction) {
+                $callback($transaction);
+            }
+
+            $requestOptions['page']++;
+        } while (! empty($response));
+    }
+
+    /**
+     * @throws UnknownProperties
+     * @throws GuzzleException
+     */
     public function findByTransactionNumber(Company $company, string $transactionNumber): Transaction
     {
         $requestOptions = [

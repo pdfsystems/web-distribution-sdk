@@ -8,12 +8,12 @@ use Spatie\DataTransferObject\Casters\ArrayCaster;
 
 class Transaction extends AbstractDto
 {
-    public int $id;
+    public ?int $id;
 
     #[MapFrom('full_transaction_number')]
-    public string $transaction_number;
+    public ?string $transaction_number;
 
-    public Customer $customer;
+    public ?Customer $customer;
 
     public ?Customer $specifier;
 
@@ -41,10 +41,12 @@ class Transaction extends AbstractDto
 
     public ?string $client_auth_key = null;
 
+    public ?GroupDescription $group_description;
+
     #[CastWith(ArrayCaster::class, itemType: TransactionItem::class)]
-    public array $items;
+    public ?array $items;
 
     #[CastWith(ArrayCaster::class, itemType: TransactionHold::class)]
-    public array $holds = [];
+    public ?array $holds = [];
 
 }
