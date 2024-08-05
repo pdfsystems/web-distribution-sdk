@@ -18,7 +18,7 @@
     "require": {
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.4",
-        "rpungello/sdk-client": "^1.9",
+        "rpungello/sdk-client": "^1.10",
         "spatie/data-transfer-object": "^3.8",
         "symfony/validator": "^6.1"
     },
