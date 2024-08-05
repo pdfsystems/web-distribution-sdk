@@ -2,6 +2,7 @@
 
 namespace Pdfsystems\WebDistributionSdk\Dtos;
 
+use DateTimeImmutable;
 use Spatie\DataTransferObject\Attributes\CastWith;
 use Spatie\DataTransferObject\Attributes\MapFrom;
 use Spatie\DataTransferObject\Casters\ArrayCaster;
@@ -9,6 +10,8 @@ use Spatie\DataTransferObject\Casters\ArrayCaster;
 class Transaction extends AbstractDto
 {
     public ?int $id;
+
+    public ?DateTimeImmutable $created_at;
 
     #[MapFrom('full_transaction_number')]
     public ?string $transaction_number;
@@ -48,5 +51,7 @@ class Transaction extends AbstractDto
 
     #[CastWith(ArrayCaster::class, itemType: TransactionHold::class)]
     public ?array $holds = [];
+
+    public ?DateTimeImmutable $job_closed_on = null;
 
 }

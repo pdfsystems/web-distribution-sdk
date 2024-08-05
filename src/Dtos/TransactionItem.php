@@ -2,6 +2,7 @@
 
 namespace Pdfsystems\WebDistributionSdk\Dtos;
 
+use DateTimeImmutable;
 use Spatie\DataTransferObject\Attributes\CastWith;
 use Spatie\DataTransferObject\Attributes\MapFrom;
 use Spatie\DataTransferObject\Casters\ArrayCaster;
@@ -24,4 +25,6 @@ class TransactionItem extends AbstractDto
     #[MapFrom('allocated_pieces')]
     #[CastWith(ArrayCaster::class, itemType: Allocation::class)]
     public array $pieces;
+
+    public ?DateTimeImmutable $job_item_closed_date = null;
 }
