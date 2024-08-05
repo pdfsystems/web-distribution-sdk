@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.4.0 - 2024-08-05
+
+Add custom fields to transactions
+
 ## 2.3.1 - 2024-08-05
 
 Add reps as transaction fields
