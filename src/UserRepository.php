@@ -6,8 +6,10 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Uri;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\ProjectUser;
+use Pdfsystems\WebDistributionSdk\Dtos\Report;
 use Pdfsystems\WebDistributionSdk\Dtos\User;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
+use SplFileInfo;
 
 class UserRepository extends AbstractRepository
 {
@@ -52,5 +54,36 @@ class UserRepository extends AbstractRepository
     public function getSsoLoginUri(string $token): Uri
     {
         return $this->client->getUri("login-sso", compact('token'));
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function createReport(Company $company, string $name, SplFileInfo $file = null): Report
+    {
+        $body = [
+            [
+                'name' => 'name',
+                'contents' => $name,
+            ],
+            [
+                'name' => 'company_id',
+                'contents' => $company->id,
+            ],
+        ];
+
+        if (! is_null($file)) {
+            $body[] = [
+                'name' => 'file',
+                'contents' => fopen($file->getPathname(), 'r'),
+                'filename' => $file->getFilename(),
+            ];
+        }
+
+        return $this->client->postMultipartAsDto(
+            "api/report",
+            $body,
+            Report::class
+        );
     }
 }

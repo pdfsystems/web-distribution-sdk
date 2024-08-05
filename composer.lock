@@ -761,16 +761,16 @@
         },
         {
             "name": "rpungello/sdk-client",
-            "version": "1.10.1",
+            "version": "1.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rpungello/sdk-client.git",
-                "reference": "b92e881aad93b228c8e72aff4bc5f7efa3cd3063"
+                "reference": "f2c7e504902adf55d690799ace48691dd3ebf3ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rpungello/sdk-client/zipball/b92e881aad93b228c8e72aff4bc5f7efa3cd3063",
-                "reference": "b92e881aad93b228c8e72aff4bc5f7efa3cd3063",
+                "url": "https://api.github.com/repos/rpungello/sdk-client/zipball/f2c7e504902adf55d690799ace48691dd3ebf3ef",
+                "reference": "f2c7e504902adf55d690799ace48691dd3ebf3ef",
                 "shasum": ""
             },
             "require": {
@@ -809,7 +809,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rpungello/sdk-client/issues",
-                "source": "https://github.com/rpungello/sdk-client/tree/1.10.1"
+                "source": "https://github.com/rpungello/sdk-client/tree/1.10.2"
             },
             "funding": [
                 {
@@ -817,7 +817,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-08-05T19:26:45+00:00"
+            "time": "2024-08-05T19:35:39+00:00"
         },
         {
             "name": "spatie/data-transfer-object",
