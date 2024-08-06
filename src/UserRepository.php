@@ -59,7 +59,7 @@ class UserRepository extends AbstractRepository
     /**
      * @throws GuzzleException
      */
-    public function createReport(Company $company, string $name, SplFileInfo $file = null): Report
+    public function createReport(Company $company, string $name, SplFileInfo $file = null, User $user = null): Report
     {
         $body = [
             [
@@ -77,6 +77,13 @@ class UserRepository extends AbstractRepository
                 'name' => 'file',
                 'contents' => fopen($file->getPathname(), 'r'),
                 'filename' => $file->getFilename(),
+            ];
+        }
+
+        if (! is_null($user)) {
+            $body[] = [
+                'name' => 'user_id',
+                'contents' => $user->id,
             ];
         }
 
