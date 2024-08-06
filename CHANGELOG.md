@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.5.2 - 2024-08-06
+
+Allow reports to be created for other WD users
+
 ## 2.5.1 - 2024-08-05
 
 Add user to transactions
