@@ -5,6 +5,7 @@ namespace Pdfsystems\WebDistributionSdk;
 use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\Rep;
+use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class RepRepository extends AbstractRepository
@@ -21,5 +22,35 @@ class RepRepository extends AbstractRepository
             'company' => $company->id,
             'sorting[name]' => 'asc',
         ]);
+    }
+
+    /**
+     * @throws UnknownProperties
+     * @throws GuzzleException
+     */
+    public function findById(int $id): Rep
+    {
+        return $this->client->getDto('api/rep/' . $id, Rep::class);
+    }
+
+    /**
+     * @throws UnknownProperties
+     * @throws GuzzleException
+     */
+    public function findByCode(Company $company, string $repCode): Rep
+    {
+        /** @var Rep[] $reps */
+        $reps = $this->client->getDtoArray('api/rep', Rep::class, [
+            'company' => $company->id,
+            'search' => $repCode,
+        ]);
+
+        foreach($reps as $rep) {
+            if ($rep->rep_code === $repCode) {
+                return $rep;
+            }
+        }
+
+        throw new NotFoundException("No rep found with rep code $repCode");
     }
 }
