@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.6.0 - 2024-09-10
+
+Add functions to load reps by ID or company and rep code
+
 ## 2.5.2 - 2024-08-06
 
 Allow reports to be created for other WD users
