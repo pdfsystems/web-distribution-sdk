@@ -45,7 +45,7 @@ class RepRepository extends AbstractRepository
             'search' => $repCode,
         ]);
 
-        foreach($reps as $rep) {
+        foreach ($reps as $rep) {
             if ($rep->rep_code === $repCode) {
                 return $rep;
             }
