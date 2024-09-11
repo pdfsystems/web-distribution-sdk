@@ -11,6 +11,7 @@ use Pdfsystems\WebDistributionSdk\Dtos\Inventory;
 use Pdfsystems\WebDistributionSdk\Dtos\Transaction;
 use Pdfsystems\WebDistributionSdk\Dtos\TransactionItem;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
+use Psr\Http\Message\ResponseInterface;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class TransactionRepository extends AbstractRepository
@@ -115,6 +116,69 @@ class TransactionRepository extends AbstractRepository
             'id' => $transaction->id,
             'key' => $transaction->client_auth_key,
         ]));
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function getNotificationResponse(Transaction $transaction): ResponseInterface
+    {
+        return $this->client->get("export/transaction/notification/$transaction->id");
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function saveNotification(Transaction $transaction, string $path): bool
+    {
+        if (! is_writable(dirname($path))) {
+            return false;
+        }
+
+        $fh = fopen($path, 'w');
+        return stream_copy_to_stream($this->getNotificationResponse($transaction)->getBody()->detach(), $fh) !== false;
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function getPickTicketResponse(Transaction $transaction): ResponseInterface
+    {
+        return $this->client->get("export/transaction/pick-ticket/$transaction->id");
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function savePickTicket(Transaction $transaction, string $path): bool
+    {
+        if (! is_writable(dirname($path))) {
+            return false;
+        }
+
+        $fh = fopen($path, 'w');
+        return stream_copy_to_stream($this->getPickTicketResponse($transaction)->getBody()->detach(), $fh) !== false;
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function getInvoiceResponse(Transaction $transaction): ResponseInterface
+    {
+        return $this->client->get("export/transaction/invoice/$transaction->id");
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function saveInvoice(Transaction $transaction, string $path): bool
+    {
+        if (! is_writable(dirname($path))) {
+            return false;
+        }
+
+        $fh = fopen($path, 'w');
+        return stream_copy_to_stream($this->getInvoiceResponse($transaction)->getBody()->detach(), $fh) !== false;
     }
 
     /**
