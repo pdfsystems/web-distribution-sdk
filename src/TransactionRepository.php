@@ -2,6 +2,7 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
+use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Uri;
@@ -11,6 +12,7 @@ use Pdfsystems\WebDistributionSdk\Dtos\Inventory;
 use Pdfsystems\WebDistributionSdk\Dtos\Transaction;
 use Pdfsystems\WebDistributionSdk\Dtos\TransactionItem;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
+use Pdfsystems\WebDistributionSdk\Exceptions\ResponseException;
 use Psr\Http\Message\ResponseInterface;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
@@ -119,15 +121,19 @@ class TransactionRepository extends AbstractRepository
     }
 
     /**
-     * @throws GuzzleException
+     * @throws ResponseException|GuzzleException
      */
     public function getNotificationResponse(Transaction $transaction): ResponseInterface
     {
-        return $this->client->get("export/transaction/notification/$transaction->id");
+        try {
+            return $this->client->get("export/transaction/notification/$transaction->id");
+        } catch (BadResponseException $e) {
+            throw $this->handleBadResponseException($e);
+        }
     }
 
     /**
-     * @throws GuzzleException
+     * @throws ResponseException|GuzzleException
      */
     public function saveNotification(Transaction $transaction, string $path): bool
     {
@@ -136,19 +142,24 @@ class TransactionRepository extends AbstractRepository
         }
 
         $fh = fopen($path, 'w');
+
         return stream_copy_to_stream($this->getNotificationResponse($transaction)->getBody()->detach(), $fh) !== false;
     }
 
     /**
-     * @throws GuzzleException
+     * @throws ResponseException|GuzzleException
      */
     public function getPickTicketResponse(Transaction $transaction): ResponseInterface
     {
-        return $this->client->get("export/transaction/pick-ticket/$transaction->id");
+        try {
+            return $this->client->get("export/transaction/pick-ticket/$transaction->id");
+        } catch (BadResponseException $e) {
+            throw $this->handleBadResponseException($e);
+        }
     }
 
     /**
-     * @throws GuzzleException
+     * @throws ResponseException|GuzzleException
      */
     public function savePickTicket(Transaction $transaction, string $path): bool
     {
@@ -157,19 +168,24 @@ class TransactionRepository extends AbstractRepository
         }
 
         $fh = fopen($path, 'w');
+
         return stream_copy_to_stream($this->getPickTicketResponse($transaction)->getBody()->detach(), $fh) !== false;
     }
 
     /**
-     * @throws GuzzleException
+     * @throws ResponseException|GuzzleException
      */
     public function getInvoiceResponse(Transaction $transaction): ResponseInterface
     {
-        return $this->client->get("export/transaction/invoice/$transaction->id");
+        try {
+            return $this->client->get("export/transaction/invoice/$transaction->id");
+        } catch (BadResponseException $e) {
+            throw $this->handleBadResponseException($e);
+        }
     }
 
     /**
-     * @throws GuzzleException
+     * @throws ResponseException|GuzzleException
      */
     public function saveInvoice(Transaction $transaction, string $path): bool
     {
@@ -178,6 +194,7 @@ class TransactionRepository extends AbstractRepository
         }
 
         $fh = fopen($path, 'w');
+
         return stream_copy_to_stream($this->getInvoiceResponse($transaction)->getBody()->detach(), $fh) !== false;
     }
 
