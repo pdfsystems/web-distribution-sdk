@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.8.0 - 2024-09-12
+
+Added function to refresh OT data for a WD transaction
+
 ## 2.7.0 - 2024-09-11
 
 Add functions for loading forms for transactions
