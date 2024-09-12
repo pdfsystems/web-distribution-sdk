@@ -199,6 +199,27 @@ class TransactionRepository extends AbstractRepository
     }
 
     /**
+     * Instructs Web Distribution to refresh the data on Order-Track for the specified transaction
+     *
+     * @param Transaction|int $transaction
+     * @return bool
+     */
+    public function refreshOrderTrack(Transaction|int $transaction): bool
+    {
+        if ($transaction instanceof Transaction) {
+            $transaction = $transaction->id;
+        }
+
+        try {
+            $response = $this->client->post("api/transaction/$transaction/refresh-order-track");
+
+            return $response->getStatusCode() === 202;
+        } catch (GuzzleException) {
+            return false;
+        }
+    }
+
+    /**
      * @throws GuzzleException
      */
     public function unallocate(TransactionItem|int $item): void
