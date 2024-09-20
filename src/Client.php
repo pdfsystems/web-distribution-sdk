@@ -89,7 +89,7 @@ class Client extends SdkClient
         $wdCode = Arr::get($response, 'code');
 
         if ($wdCode === 1002) {
-            return new ValidationException($response['description'], $response['errors'], $ex->getCode(), $ex);
+            return new ValidationException("{$response['description']}: {$ex->getRequest()->getUri()->getPath()}", $response['errors'], $ex->getCode(), $ex);
         } else {
             return new ResponseException($response['description'], $ex->getCode());
         }
