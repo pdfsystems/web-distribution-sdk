@@ -8,6 +8,8 @@ use Pdfsystems\WebDistributionSdk\Dtos\Customer;
 use Pdfsystems\WebDistributionSdk\Dtos\Rep;
 use Pdfsystems\WebDistributionSdk\Dtos\ResaleCertificate;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
+use Rpungello\SdkClient\SdkClient;
+use RuntimeException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 use SplFileInfo;
 
@@ -108,6 +110,11 @@ class CustomerRepository extends AbstractRepository
         return $this->client->putDto("api/customer/$customer->id", $customer);
     }
 
+    /**
+     * @throws UnknownProperties
+     * @throws GuzzleException
+     * @throws RuntimeException
+     */
     public function addResaleCertificate(Customer $customer, ResaleCertificate $certificate, ?SplFileInfo $document = null): ResaleCertificate
     {
         $request = $certificate->toArray();
@@ -117,6 +124,17 @@ class CustomerRepository extends AbstractRepository
             $request['expiration_date'] = $request['expiration_date']->format('Y-m-d');
         }
 
-        return $this->client->postJsonAsDto('api/resale-certificate', $request, ResaleCertificate::class);
+        if (empty($document)) {
+            return $this->client->postJsonAsDto('api/resale-certificate', $request, ResaleCertificate::class);
+        } else {
+            $body = SdkClient::convertJsonToMultipart($request);
+            $body[] = [
+                'name' => 'file',
+                'contents' => $document->openFile(),
+                'filename' => $document->getFilename(),
+            ];
+
+            return $this->client->postMultipartAsDto('api/resale-certificate', $body, ResaleCertificate::class);
+        }
     }
 }
