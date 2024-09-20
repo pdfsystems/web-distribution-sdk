@@ -80,10 +80,10 @@ class CustomerRepository extends AbstractRepository
         }
 
         if ($shouldUpdate) {
-            return $this->update($customer);
-        } else {
-            return $this->findById($response->id);
+            $this->update($customer);
         }
+
+        return $this->findById($response->id);
     }
 
     private function shouldRunUpdateAfterCreation(Customer $customer): bool
