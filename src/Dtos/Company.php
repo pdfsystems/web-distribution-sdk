@@ -15,6 +15,8 @@ class Company extends AbstractDto
 
     public ?Currency $currency;
 
+    public ?Country $country;
+
     #[CastWith(ArrayCaster::class, Line::class)]
     public array $lines = [];
 }

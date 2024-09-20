@@ -133,6 +133,7 @@ class Client extends SdkClient
         $eagerRelations = [
             'defaultCompany.currency',
             'defaultCompany.lines',
+            'defaultCompany.country',
         ];
 
         if (array_key_exists('include_api_keys', $options) && $options['include_api_keys'] === true) {
@@ -232,5 +233,15 @@ class Client extends SdkClient
     public function reps(): RepRepository
     {
         return new RepRepository($this);
+    }
+
+    public function customers(): CustomerRepository
+    {
+        return new CustomerRepository($this);
+    }
+
+    public function employees(): EmployeeRepository
+    {
+        return new EmployeeRepository($this);
     }
 }
