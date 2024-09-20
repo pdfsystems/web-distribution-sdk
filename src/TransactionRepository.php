@@ -125,11 +125,7 @@ class TransactionRepository extends AbstractRepository
      */
     public function getNotificationResponse(Transaction $transaction): ResponseInterface
     {
-        try {
-            return $this->client->get("export/transaction/notification/$transaction->id");
-        } catch (BadResponseException $e) {
-            throw $this->handleBadResponseException($e);
-        }
+        return $this->client->get("export/transaction/notification/$transaction->id");
     }
 
     /**
@@ -151,11 +147,7 @@ class TransactionRepository extends AbstractRepository
      */
     public function getPickTicketResponse(Transaction $transaction): ResponseInterface
     {
-        try {
-            return $this->client->get("export/transaction/pick-ticket/$transaction->id");
-        } catch (BadResponseException $e) {
-            throw $this->handleBadResponseException($e);
-        }
+        return $this->client->get("export/transaction/pick-ticket/$transaction->id");
     }
 
     /**
@@ -177,11 +169,7 @@ class TransactionRepository extends AbstractRepository
      */
     public function getInvoiceResponse(Transaction $transaction): ResponseInterface
     {
-        try {
-            return $this->client->get("export/transaction/invoice/$transaction->id");
-        } catch (BadResponseException $e) {
-            throw $this->handleBadResponseException($e);
-        }
+        return $this->client->get("export/transaction/invoice/$transaction->id");
     }
 
     /**
