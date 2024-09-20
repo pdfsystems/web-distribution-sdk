@@ -16,6 +16,8 @@ class DateCaster implements Caster
             } catch (Exception) {
                 return null;
             }
+        } elseif ($value instanceof DateTimeImmutable) {
+            return $value;
         }
 
         return null;

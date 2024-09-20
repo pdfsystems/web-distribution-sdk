@@ -6,8 +6,10 @@ use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\Customer;
 use Pdfsystems\WebDistributionSdk\Dtos\Rep;
+use Pdfsystems\WebDistributionSdk\Dtos\ResaleCertificate;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
+use SplFileInfo;
 
 class CustomerRepository extends AbstractRepository
 {
@@ -104,5 +106,17 @@ class CustomerRepository extends AbstractRepository
     private function update(Customer $customer): Customer
     {
         return $this->client->putDto("api/customer/$customer->id", $customer);
+    }
+
+    public function addResaleCertificate(Customer $customer, ResaleCertificate $certificate, ?SplFileInfo $document = null): ResaleCertificate
+    {
+        $request = $certificate->toArray();
+        $request['state_id'] = $this->client->states()->find($customer->country, $certificate->state->code)->id;
+        $request['customer'] = $customer->id;
+        if (! empty($request['expiration_date'])) {
+            $request['expiration_date'] = $request['expiration_date']->format('Y-m-d');
+        }
+
+        return $this->client->postJsonAsDto('api/resale-certificate', $request, ResaleCertificate::class);
     }
 }

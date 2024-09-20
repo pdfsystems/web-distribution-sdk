@@ -4,9 +4,9 @@ namespace Pdfsystems\WebDistributionSdk\Dtos;
 
 class State extends AbstractDto
 {
-    public int $id;
+    public ?int $id;
 
-    public string $code;
+    public ?string $code;
 
-    public string $name;
+    public ?string $name;
 }
