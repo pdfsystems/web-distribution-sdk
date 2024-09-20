@@ -64,6 +64,7 @@ class CustomerRepository extends AbstractRepository
     public function create(Company $company, Rep $rep, Customer $customer): Customer
     {
         $body = $customer->toArray();
+        $shouldUpdate = $this->shouldRunUpdateAfterCreation($customer);
 
         if (empty($rep->id)) {
             $rep = $this->client->reps()->findByCode($company, $rep->rep_code);
@@ -71,12 +72,37 @@ class CustomerRepository extends AbstractRepository
         $body['rep'] = $rep->id;
 
         $response = $this->client->postJsonAsDto('api/customer', $body, Customer::class);
+        $customer->id = $response->id;
 
         foreach ($customer->employees as $employee) {
             $employee->country = $response->country;
             $this->client->employees()->create('customer', $response->id, $employee);
         }
 
-        return $this->findById($response->id);
+        if ($shouldUpdate) {
+            return $this->update($customer);
+        } else {
+            return $this->findById($response->id);
+        }
+    }
+
+    private function shouldRunUpdateAfterCreation(Customer $customer): bool
+    {
+        if (! empty($customer->primary_address)) {
+            return true;
+        } elseif (! empty($customer->primary_phone_number)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @throws UnknownProperties
+     * @throws GuzzleException
+     */
+    private function update(Customer $customer): Customer
+    {
+        return $this->client->putDto("api/customer/$customer->id", $customer);
     }
 }

@@ -17,6 +17,8 @@ class Customer extends AbstractDto
 
     public ?Address $primary_address;
 
+    public ?string $primary_phone_number;
+
     public ?Rep $rep;
 
     /**
