@@ -2,6 +2,13 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.9.0 - 2024-09-20
+
+- Add customer repository
+- Add employee repository
+- Add resale certificates
+- Add state repository
+
 ## 2.8.0 - 2024-09-12
 
 Added function to refresh OT data for a WD transaction
