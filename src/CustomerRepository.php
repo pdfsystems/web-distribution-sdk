@@ -77,6 +77,6 @@ class CustomerRepository extends AbstractRepository
             $this->client->employees()->create('customer', $response->id, $employee);
         }
 
-        return $response;
+        return $this->findById($response->id);
     }
 }
