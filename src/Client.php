@@ -4,13 +4,19 @@ namespace Pdfsystems\WebDistributionSdk;
 
 use Composer\InstalledVersions;
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\RequestOptions;
 use Pdfsystems\WebDistributionSdk\Dtos\ApiKey;
 use Pdfsystems\WebDistributionSdk\Dtos\User;
+use Pdfsystems\WebDistributionSdk\Exceptions\ResponseException;
+use Pdfsystems\WebDistributionSdk\Exceptions\ValidationException;
+use Psr\Http\Message\ResponseInterface;
 use Rpungello\SdkClient\SdkClient;
+use Spatie\DataTransferObject\Arr;
+use Spatie\DataTransferObject\DataTransferObject;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class Client extends SdkClient
@@ -39,6 +45,54 @@ class Client extends SdkClient
     private static function getVersion(): string
     {
         return InstalledVersions::getVersion('pdf-systems-inc/web-distribution-sdk');
+    }
+
+    public function get(string $uri, array $query = [], array $headers = []): ResponseInterface
+    {
+        try {
+            return parent::get($uri, $query, $headers);
+        } catch (BadResponseException $e) {
+            throw $this->handleBadResponseException($e);
+        }
+    }
+
+    public function post(string $uri, DataTransferObject|array|null $body = null, array $headers = []): ResponseInterface
+    {
+        try {
+            return parent::post($uri, $body, $headers);
+        } catch (BadResponseException $e) {
+            throw $this->handleBadResponseException($e);
+        }
+    }
+
+    public function put(string $uri, DataTransferObject|array|null $body = null, array $headers = []): ResponseInterface
+    {
+        try {
+            return parent::put($uri, $body, $headers);
+        } catch (BadResponseException $e) {
+            throw $this->handleBadResponseException($e);
+        }
+    }
+
+    protected function handleBadResponseException(BadResponseException $ex): ResponseException
+    {
+        if ($ex->getCode() === 422) {
+            return $this->handleInvalidRequestDataException($ex);
+        }
+
+        return new ResponseException($ex->getMessage(), $ex->getCode(), $ex);
+    }
+
+    private function handleInvalidRequestDataException(BadResponseException $ex): ResponseException
+    {
+        $response = json_decode($ex->getResponse()->getBody()->getContents(), true);
+        $wdCode = Arr::get($response, 'code');
+
+        if ($wdCode === 1002) {
+            return new ValidationException($response['description'], $response['errors'], $ex->getCode(), $ex);
+        } else {
+            return new ResponseException($response['description'], $ex->getCode());
+        }
     }
 
     private static function requiresCookies(array $credentials): bool
