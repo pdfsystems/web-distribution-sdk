@@ -30,7 +30,9 @@ class RepRepository extends AbstractRepository
      */
     public function findById(int $id): Rep
     {
-        return $this->client->getDto('api/rep/' . $id, Rep::class);
+        return $this->client->getDto('api/rep/' . $id, Rep::class, [
+            'with' => ['masterRep', 'nationalRep'],
+        ]);
     }
 
     /**
@@ -43,6 +45,7 @@ class RepRepository extends AbstractRepository
         $reps = $this->client->getDtoArray('api/rep', Rep::class, [
             'company' => $company->id,
             'search' => $repCode,
+            'with' => ['masterRep', 'nationalRep'],
         ]);
 
         foreach ($reps as $rep) {
