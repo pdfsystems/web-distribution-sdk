@@ -48,6 +48,7 @@ class CustomerRepository extends AbstractRepository
             'rep_id' => $repId,
             'master' => $masterRep,
             'count' => $maxResults,
+            'with' => ['employees.emailAddress', 'shipTos.address'],
         ]);
     }
 
