@@ -7,6 +7,7 @@ use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\Customer;
 use Pdfsystems\WebDistributionSdk\Dtos\Rep;
 use Pdfsystems\WebDistributionSdk\Dtos\ResaleCertificate;
+use Pdfsystems\WebDistributionSdk\Dtos\ShipTo;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
 use Rpungello\SdkClient\SdkClient;
 use RuntimeException;
@@ -158,5 +159,13 @@ class CustomerRepository extends AbstractRepository
 
             return $this->client->postMultipartAsDto('api/resale-certificate', $body, ResaleCertificate::class);
         }
+    }
+
+    public function addShipTo(Customer $customer, ShipTo $shipTo): ShipTo
+    {
+        return $this->client->postJsonAsDto('api/ship-to', array_merge([
+            'customer' => $customer->id,
+            'country_id' => $shipTo->country?->id,
+        ], $shipTo->toArray()), ShipTo::class);
     }
 }
