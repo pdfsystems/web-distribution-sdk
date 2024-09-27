@@ -2,6 +2,11 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.11.0 - 2024-09-27
+
+- Added ship to creation
+- Added customer search
+
 ## 2.10.0 - 2024-09-27
 
 Added master and national rep info
