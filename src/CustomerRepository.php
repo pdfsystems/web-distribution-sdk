@@ -31,6 +31,27 @@ class CustomerRepository extends AbstractRepository
     }
 
     /**
+     * @param Company $company
+     * @param string $query
+     * @param int|null $repId
+     * @param bool $masterRep
+     * @param int $maxResults
+     * @return Customer[]
+     * @throws GuzzleException
+     * @throws UnknownProperties
+     */
+    public function search(Company $company, string $query, ?int $repId = null, bool $masterRep = false, int $maxResults = 50): array
+    {
+        return $this->client->getDtoArray('api/customer/search', Customer::class, [
+            'company_id' => $company->id,
+            'q' => $query,
+            'rep_id' => $repId,
+            'master' => $masterRep,
+            'count' => $maxResults,
+        ]);
+    }
+
+    /**
      * @throws UnknownProperties
      * @throws GuzzleException
      */
