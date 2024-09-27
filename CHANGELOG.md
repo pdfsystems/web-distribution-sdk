@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.10.0 - 2024-09-27
+
+Added master and national rep info
+
 ## 2.9.0 - 2024-09-20
 
 - Add customer repository
