@@ -21,6 +21,9 @@ class Customer extends AbstractDto
 
     public ?Rep $rep;
 
+    #[CastWith(ArrayCaster::class, ShipTo::class)]
+    public array $ship_tos = [];
+
     /**
      * @var ResaleCertificate[]
      */
