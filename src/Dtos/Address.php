@@ -24,6 +24,8 @@ class Address extends AbstractDto
 
     public ?Country $country;
 
+    public ?string $formatted;
+
     public function toArray(): array
     {
         return array_merge(parent::toArray(), [
