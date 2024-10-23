@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.13.1 - 2024-10-23
+
+Load custom fields when loading customers by customer number
+
 ## 2.13.0 - 2024-10-23
 
 Added read-only custom fields for products
