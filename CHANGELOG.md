@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.13.2 - 2024-10-23
+
+Add trait for custom field resources, which allows product custom fields to be pulled from both item and styles in WD
+
 ## 2.13.1 - 2024-10-23
 
 Load custom fields when loading customers by customer number
