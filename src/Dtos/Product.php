@@ -3,7 +3,9 @@
 namespace Pdfsystems\WebDistributionSdk\Dtos;
 
 use DateTimeImmutable;
+use Spatie\DataTransferObject\Attributes\CastWith;
 use Spatie\DataTransferObject\Attributes\MapFrom;
+use Spatie\DataTransferObject\Casters\ArrayCaster;
 
 class Product extends AbstractDto
 {
@@ -60,4 +62,18 @@ class Product extends AbstractDto
     public ?Vendor $vendor;
 
     public ?Book $primary_book;
+
+    /**
+     * @var CustomField[]
+     */
+    #[CastWith(ArrayCaster::class, CustomField::class)]
+    #[MapFrom('custom_fields')]
+    public array $custom_fields_item = [];
+
+    /**
+     * @var CustomField[]
+     */
+    #[CastWith(ArrayCaster::class, CustomField::class)]
+    #[MapFrom('style.custom_fields')]
+    public array $custom_fields_style = [];
 }

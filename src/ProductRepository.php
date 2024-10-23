@@ -78,7 +78,9 @@ class ProductRepository extends AbstractRepository
             'with' => [
                 'style.productCategoryCode',
                 'style.primaryPrice',
+                'style.customFields',
                 'company',
+                'customFields',
                 'discontinueCode',
                 'line',
                 'primaryBook',
@@ -106,7 +108,9 @@ class ProductRepository extends AbstractRepository
             'with' => [
                 'style.productCategoryCode',
                 'style.primaryPrice',
+                'style.customFields',
                 'company',
+                'customFields',
                 'discontinueCode',
                 'line',
                 'primaryBook',
