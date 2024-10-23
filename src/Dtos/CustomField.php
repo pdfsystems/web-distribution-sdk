@@ -15,4 +15,6 @@ class CustomField extends AbstractDto
     public bool $ordertrack_visible = false;
     public bool $ordertrack_editable = false;
     public bool $ordertrack_filterable = false;
+    /** @var string[] */
+    public ?array $options = [];
 }
