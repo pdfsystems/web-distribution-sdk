@@ -130,7 +130,7 @@ class CustomerRepository extends AbstractRepository
      * @throws UnknownProperties
      * @throws GuzzleException
      */
-    private function update(Customer $customer): Customer
+    public function update(Customer $customer): Customer
     {
         return $this->client->putDto("api/customer/$customer->id", $customer);
     }
