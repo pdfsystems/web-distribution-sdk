@@ -59,7 +59,9 @@ class CustomerRepository extends AbstractRepository
      */
     public function findById(int $id): Customer
     {
-        return $this->client->getDto('api/customer/' . $id, Customer::class);
+        return $this->client->getDto('api/customer/' . $id, Customer::class, [
+            'with' => ['customFields'],
+        ]);
     }
 
     /**
