@@ -74,7 +74,7 @@ class CustomerRepository extends AbstractRepository
         $customers = $this->client->getDtoArray('api/customer', Customer::class, [
             'company' => $company->id,
             'search' => "#$customerNumber",
-            'with' => ['country', 'primaryAddress', 'employees.emailAddress'],
+            'with' => ['country', 'primaryAddress', 'employees.emailAddress', 'customFields'],
         ]);
 
         foreach ($customers as $customer) {
