@@ -3,12 +3,15 @@
 namespace Pdfsystems\WebDistributionSdk\Dtos;
 
 use DateTimeImmutable;
+use Pdfsystems\WebDistributionSdk\Concerns\HasCustomFields;
 use Spatie\DataTransferObject\Attributes\CastWith;
 use Spatie\DataTransferObject\Attributes\MapFrom;
 use Spatie\DataTransferObject\Casters\ArrayCaster;
 
 class Product extends AbstractDto
 {
+    use HasCustomFields;
+
     public int $id;
 
     public int $style_id;
@@ -76,4 +79,9 @@ class Product extends AbstractDto
     #[CastWith(ArrayCaster::class, CustomField::class)]
     #[MapFrom('style.custom_fields')]
     public array $custom_fields_style = [];
+
+    public function getAllCustomFields(): array
+    {
+        return array_merge($this->custom_fields_item, $this->custom_fields_style);
+    }
 }

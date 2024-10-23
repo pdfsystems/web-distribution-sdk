@@ -2,11 +2,14 @@
 
 namespace Pdfsystems\WebDistributionSdk\Dtos;
 
+use Pdfsystems\WebDistributionSdk\Concerns\HasCustomFields;
 use Spatie\DataTransferObject\Attributes\CastWith;
 use Spatie\DataTransferObject\Casters\ArrayCaster;
 
 class Customer extends AbstractDto
 {
+    use HasCustomFields;
+
     public ?int $id;
 
     public ?string $customer_number;
