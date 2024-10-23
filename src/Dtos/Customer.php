@@ -36,6 +36,9 @@ class Customer extends AbstractDto
     #[CastWith(ArrayCaster::class, Employee::class)]
     public array $employees = [];
 
+    /**
+     * @var CustomField[]
+     */
     #[CastWith(ArrayCaster::class, CustomField::class)]
     public array $custom_fields = [];
 }
