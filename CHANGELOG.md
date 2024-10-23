@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.13.3 - 2024-10-23
+
+Added custom field options for drop-down menus
+
 ## 2.13.2 - 2024-10-23
 
 Add trait for custom field resources, which allows product custom fields to be pulled from both item and styles in WD
