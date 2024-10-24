@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.13.5 - 2024-10-24
+
+Added helper function for setting custom fields
+
 ## 2.13.4 - 2024-10-24
 
 Add support for updating product custom fields
