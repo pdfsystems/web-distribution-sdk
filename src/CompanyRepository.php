@@ -5,6 +5,7 @@ namespace Pdfsystems\WebDistributionSdk;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
+use Pdfsystems\WebDistributionSdk\Dtos\CustomField;
 use Pdfsystems\WebDistributionSdk\Exceptions\ForbiddenException;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
 use Pdfsystems\WebDistributionSdk\Exceptions\ResponseException;
@@ -47,6 +48,26 @@ class CompanyRepository extends AbstractRepository
                 throw new ForbiddenException("You do not have permission to access company with id $id");
             } elseif ($e->getCode() === 404 || $e->getCode() === 500) {
                 throw new NotFoundException("Company with id $id not found");
+            } else {
+                throw $e;
+            }
+        }
+    }
+
+    /**
+     * @throws UnknownProperties
+     * @throws GuzzleException
+     */
+    public function customFields(Company $company, string $resourceClass): array
+    {
+        try {
+            return $this->client->getDtoArray('api/custom-field', CustomField::class, [
+                'company' => $company->id,
+                'resource_class' => $resourceClass,
+            ]);
+        } catch (RequestException $e) {
+            if ($e->getCode() === 403) {
+                throw new ForbiddenException("You do not have permission to access company with id $company->id");
             } else {
                 throw $e;
             }
