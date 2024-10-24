@@ -84,4 +84,10 @@ class Product extends AbstractDto
     {
         return array_merge($this->custom_fields_item, $this->custom_fields_style);
     }
+
+    public function setCustomFields(array $customFields): void
+    {
+        $this->custom_fields_item = $customFields;
+        $this->custom_fields_style = $customFields;
+    }
 }
