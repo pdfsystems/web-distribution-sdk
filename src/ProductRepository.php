@@ -140,12 +140,15 @@ class ProductRepository extends AbstractRepository
             'content' => $product->content,
             'width' => $product->width,
             'repeat' => $product->repeat,
+            'custom_fields' => $product->custom_fields_style,
         ]);
         $this->client->putJson('api/item/' . $product->id, [
             'item_number' => $product->item_number,
             'color_name' => $product->color_name,
             'warehouse_location' => $product->warehouse_location,
             'sample_warehouse_location' => $product->warehouse_location_sample,
+            'custom_fields' => $product->custom_fields_item,
+            'date_discontinued' => $product->discontinued_date,
         ]);
 
         return $this->find($product->company, $product->item_number);
