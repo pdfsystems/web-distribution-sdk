@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.14.0 - 2024-10-24
+
+Switch to using an interface for HasCustomFields
+
 ## 2.13.5 - 2024-10-24
 
 Added helper function for setting custom fields
