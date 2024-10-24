@@ -2,14 +2,12 @@
 
 namespace Pdfsystems\WebDistributionSdk\Dtos;
 
-use Pdfsystems\WebDistributionSdk\Concerns\HasCustomFields;
+use Pdfsystems\WebDistributionSdk\Contracts\HasCustomFields;
 use Spatie\DataTransferObject\Attributes\CastWith;
 use Spatie\DataTransferObject\Casters\ArrayCaster;
 
-class Customer extends AbstractDto
+class Customer extends AbstractDto implements HasCustomFields
 {
-    use HasCustomFields;
-
     public ?int $id;
 
     public ?string $customer_number;
@@ -44,4 +42,14 @@ class Customer extends AbstractDto
      */
     #[CastWith(ArrayCaster::class, CustomField::class)]
     public array $custom_fields = [];
+
+    public function getAllCustomFields(): array
+    {
+        return $this->custom_fields;
+    }
+
+    public function setCustomFields(array $customFields): void
+    {
+        $this->custom_fields = $customFields;
+    }
 }

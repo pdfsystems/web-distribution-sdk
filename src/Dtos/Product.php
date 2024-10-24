@@ -3,15 +3,13 @@
 namespace Pdfsystems\WebDistributionSdk\Dtos;
 
 use DateTimeImmutable;
-use Pdfsystems\WebDistributionSdk\Concerns\HasCustomFields;
+use Pdfsystems\WebDistributionSdk\Contracts\HasCustomFields;
 use Spatie\DataTransferObject\Attributes\CastWith;
 use Spatie\DataTransferObject\Attributes\MapFrom;
 use Spatie\DataTransferObject\Casters\ArrayCaster;
 
-class Product extends AbstractDto
+class Product extends AbstractDto implements HasCustomFields
 {
-    use HasCustomFields;
-
     public int $id;
 
     public int $style_id;
