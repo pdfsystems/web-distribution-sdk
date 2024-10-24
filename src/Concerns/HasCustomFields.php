@@ -17,4 +17,11 @@ trait HasCustomFields
 
         return [];
     }
+
+    public function setCustomFields(array $customFields): void
+    {
+        if (property_exists($this, 'custom_fields')) {
+            $this->custom_fields = $customFields;
+        }
+    }
 }
