@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.16.0 - 2024-10-24
+
+Added function to list custom fields for a company
+
 ## 2.15.0 - 2024-10-24
 
 Added type casting for custom field values on toArray()
