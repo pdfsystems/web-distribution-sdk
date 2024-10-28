@@ -12,7 +12,7 @@ class Customer extends AbstractDto implements HasCustomFields
 
     public ?string $customer_number;
 
-    public string $name;
+    public ?string $name;
 
     public ?Country $country;
 

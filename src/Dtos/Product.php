@@ -10,19 +10,19 @@ use Spatie\DataTransferObject\Casters\ArrayCaster;
 
 class Product extends AbstractDto implements HasCustomFields
 {
-    public int $id;
+    public ?int $id;
 
-    public int $style_id;
+    public ?int $style_id;
 
-    public string $item_number;
+    public ?string $item_number;
 
     #[MapFrom('style.name')]
-    public string $style_name;
+    public ?string $style_name;
 
     public ?string $color_name;
 
     #[MapFrom('style.product_category_code.name')]
-    public string $category;
+    public ?string $category;
 
     #[MapFrom('style.content')]
     public ?string $content;
@@ -34,10 +34,10 @@ class Product extends AbstractDto implements HasCustomFields
     public ?string $repeat;
 
     #[MapFrom('style.selling_unit.name')]
-    public string $selling_unit;
+    public ?string $selling_unit;
 
     #[MapFrom('style.mill_unit.name')]
-    public string $vendor_unit;
+    public ?string $vendor_unit;
 
     #[MapFrom('style.primary_price.wholesale_price')]
     public ?float $price;
