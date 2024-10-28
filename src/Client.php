@@ -257,4 +257,9 @@ class Client extends SdkClient
     {
         return new StateRepository($this);
     }
+
+    public function sampleTransactions(): SampleTransactionRepository
+    {
+        return new SampleTransactionRepository($this);
+    }
 }
