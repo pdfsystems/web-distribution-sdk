@@ -9,6 +9,7 @@ use Pdfsystems\WebDistributionSdk\Dtos\Rep;
 use Pdfsystems\WebDistributionSdk\Dtos\ResaleCertificate;
 use Pdfsystems\WebDistributionSdk\Dtos\ShipTo;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
+use Pdfsystems\WebDistributionSdk\Exceptions\ValidationException;
 use Rpungello\SdkClient\SdkClient;
 use RuntimeException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
@@ -139,6 +140,7 @@ class CustomerRepository extends AbstractRepository
      * @throws UnknownProperties
      * @throws GuzzleException
      * @throws RuntimeException
+     * @throws ValidationException
      */
     public function addResaleCertificate(Customer $customer, ResaleCertificate $certificate, ?SplFileInfo $document = null): ResaleCertificate
     {
@@ -163,6 +165,13 @@ class CustomerRepository extends AbstractRepository
         }
     }
 
+    /**
+     * @param Customer $customer
+     * @param ShipTo $shipTo
+     * @return ShipTo
+     * @throws ValidationException
+     * @throws GuzzleException
+     */
     public function addShipTo(Customer $customer, ShipTo $shipTo): ShipTo
     {
         return $this->client->postJsonAsDto('api/ship-to', array_merge([
