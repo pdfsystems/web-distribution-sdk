@@ -11,6 +11,7 @@ use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\RequestOptions;
 use Pdfsystems\WebDistributionSdk\Dtos\ApiKey;
 use Pdfsystems\WebDistributionSdk\Dtos\User;
+use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
 use Pdfsystems\WebDistributionSdk\Exceptions\ResponseException;
 use Pdfsystems\WebDistributionSdk\Exceptions\ValidationException;
 use Psr\Http\Message\ResponseInterface;
@@ -88,7 +89,9 @@ class Client extends SdkClient
         $response = json_decode($ex->getResponse()->getBody()->getContents(), true);
         $wdCode = Arr::get($response, 'code');
 
-        if ($wdCode === 1002) {
+        if ($wdCode === 1000) {
+            return new NotFoundException($response['description'], $ex->getCode(), $ex);
+        } elseif ($wdCode === 1002) {
             return new ValidationException("{$response['description']}: {$ex->getRequest()->getUri()->getPath()}", $response['errors'], $ex->getCode(), $ex);
         } else {
             return new ResponseException($response['description'], $ex->getCode());
