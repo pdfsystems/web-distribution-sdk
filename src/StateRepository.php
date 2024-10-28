@@ -14,11 +14,20 @@ class StateRepository extends AbstractRepository
      * @throws UnknownProperties
      * @throws GuzzleException
      */
-    public function find(Country $country, string $code): State
+    public function list(Country $country): array
     {
-        $states = $this->client->getDtoArray('api/state', State::class, [
+        return $this->client->getDtoArray('api/state', State::class, [
             'country' => $country->id,
         ]);
+    }
+
+    /**
+     * @throws UnknownProperties
+     * @throws GuzzleException
+     */
+    public function find(Country $country, string $code): State
+    {
+        $states = $this->list($country);
 
         /**
          * @var State $state

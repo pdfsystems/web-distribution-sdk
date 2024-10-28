@@ -245,6 +245,11 @@ class Client extends SdkClient
         return new EmployeeRepository($this);
     }
 
+    public function countries(): CountryRepository
+    {
+        return new CountryRepository($this);
+    }
+
     public function states(): StateRepository
     {
         return new StateRepository($this);
