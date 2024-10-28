@@ -2,6 +2,11 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.17.0 - 2024-10-28
+
+- Added country repository
+- Added list function for states
+
 ## 2.16.0 - 2024-10-24
 
 Added function to list custom fields for a company
