@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.18.0 - 2024-10-29
+
+Add sample transactions
+
 ## 2.17.0 - 2024-10-28
 
 - Added country repository
