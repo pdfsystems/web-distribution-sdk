@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.19.2 - 2024-10-29
+
+Load default sample types with default lines
+
 ## 2.19.0 - 2024-10-29
 
 Load default lines for companies
