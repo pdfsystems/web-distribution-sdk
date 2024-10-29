@@ -20,6 +20,7 @@ class LineRepository extends AbstractRepository
         return $this->client->getDtoArray('api/line', Line::class, [
             'company' => $company->id,
             'sorting[name]' => 'asc',
+            'with' => ['defaultSampleTypeCode'],
         ]);
     }
 }
