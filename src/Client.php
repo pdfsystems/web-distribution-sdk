@@ -134,9 +134,10 @@ class Client extends SdkClient
     public function getAuthenticatedUser(array $options = []): User
     {
         $eagerRelations = [
-            'defaultCompany.currency',
-            'defaultCompany.lines',
             'defaultCompany.country',
+            'defaultCompany.currency',
+            'defaultCompany.defaultLine',
+            'defaultCompany.lines',
         ];
 
         if (array_key_exists('include_api_keys', $options) && $options['include_api_keys'] === true) {

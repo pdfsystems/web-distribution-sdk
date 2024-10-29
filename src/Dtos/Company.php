@@ -17,6 +17,8 @@ class Company extends AbstractDto
 
     public ?Country $country;
 
+    public ?Line $default_line;
+
     #[CastWith(ArrayCaster::class, Line::class)]
     public array $lines = [];
 }

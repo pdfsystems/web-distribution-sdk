@@ -22,7 +22,7 @@ class CompanyRepository extends AbstractRepository
     {
         return array_map(function (array $company): Company {
             return new Company($company);
-        }, $this->client->getJson('api/company', ['with' => ['lines', 'currency']]));
+        }, $this->client->getJson('api/company', ['with' => ['defaultLine', 'lines', 'currency']]));
     }
 
     /**
@@ -34,8 +34,9 @@ class CompanyRepository extends AbstractRepository
     {
         $requestOptions = [
             'with' => [
-                'lines',
                 'currency',
+                'defaultLine',
+                'lines',
             ],
         ];
 
