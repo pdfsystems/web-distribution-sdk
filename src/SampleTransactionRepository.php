@@ -41,6 +41,9 @@ class SampleTransactionRepository extends AbstractRepository
                 'id' => $response->id,
                 'data' => array_map(fn (SampleTransactionItem $item) => $this->mapItemDtoToArray($item), $sampleTransaction->items),
             ]);
+
+            // We have to run an update to mark the sample transaction as active
+            $this->client->putJson("api/sample-transaction/$response->id");
         }
 
         return $response;
