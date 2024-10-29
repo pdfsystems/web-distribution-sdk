@@ -101,6 +101,14 @@ class SampleTransactionRepository extends AbstractRepository
             $array['shipping_service_id'] = $sampleTransaction->shipping_service->id;
         }
 
+        if (! is_null($sampleTransaction->ship_to_country)) {
+            $array['ship_to_country_id'] = $sampleTransaction->ship_to_country->id;
+        }
+
+        if (! is_null($sampleTransaction->ship_to_state)) {
+            $array['ship_to_state_id'] = $sampleTransaction->ship_to_state->id;
+        }
+
         return $array;
     }
 
