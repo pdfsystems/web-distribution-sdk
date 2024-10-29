@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.19.4 - 2024-10-29
+
+Added sample transaction numbers
+
 ## 2.19.3 - 2024-10-29
 
 Assign ship to country & state IDs for new sample transactions
