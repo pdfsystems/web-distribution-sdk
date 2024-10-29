@@ -8,6 +8,7 @@ use Spatie\DataTransferObject\Casters\ArrayCaster;
 class SampleTransaction extends AbstractDto
 {
     public ?int $id;
+    public ?string $sample_transaction_number;
     public ?string $customer_email;
     public ?Customer $customer;
     public ?Line $line;
