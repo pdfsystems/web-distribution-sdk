@@ -136,7 +136,7 @@ class Client extends SdkClient
         $eagerRelations = [
             'defaultCompany.country',
             'defaultCompany.currency',
-            'defaultCompany.defaultLine',
+            'defaultCompany.defaultLine.defaultSampleTypeCode',
             'defaultCompany.lines',
         ];
 
