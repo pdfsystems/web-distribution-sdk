@@ -2,6 +2,11 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.20.0 - 2024-10-30
+
+- Added customer iterator
+- Load shipping info for customers
+
 ## 2.19.4 - 2024-10-29
 
 Added sample transaction numbers
