@@ -41,6 +41,42 @@ class CustomerRepository extends AbstractRepository
 
     /**
      * @param Company $company
+     * @param callable $callback
+     * @param array $options
+     * @param int $perPage
+     * @return void
+     * @throws GuzzleException
+     * @throws UnknownProperties
+     */
+    public function iterate(Company $company, callable $callback, array $options = [], int $perPage = 128): void
+    {
+        $requestOptions = [
+            'company' => $company->id,
+            'with' => [
+                'country',
+                'defaultCarrier',
+                'defaultSampleCarrier',
+                'defaultSampleShippingService',
+                'defaultShippingService',
+                'primaryAddress',
+            ],
+            'count' => $perPage,
+            'page' => 1,
+        ];
+
+        do {
+            $response = $this->client->getJson('api/customer', $requestOptions);
+
+            foreach ($response as $customer) {
+                $callback(new Customer($customer));
+            }
+
+            $requestOptions['page']++;
+        } while (! empty($response));
+    }
+
+    /**
+     * @param Company $company
      * @param string $query
      * @param int|null $repId
      * @param bool $masterRep
