@@ -28,7 +28,14 @@ class CustomerRepository extends AbstractRepository
         return $this->client->getDtoArray('api/customer', Customer::class, [
             'company' => $company->id,
             'sorting[name]' => 'asc',
-            'with' => ['country', 'primaryAddress'],
+            'with' => [
+                'country',
+                'defaultCarrier',
+                'defaultSampleCarrier',
+                'defaultSampleShippingService',
+                'defaultShippingService',
+                'primaryAddress',
+            ],
         ]);
     }
 
@@ -50,7 +57,14 @@ class CustomerRepository extends AbstractRepository
             'rep_id' => $repId,
             'master' => $masterRep,
             'count' => $maxResults,
-            'with' => ['employees.emailAddress', 'shipTos.address'],
+            'with' => [
+                'employees.emailAddress',
+                'shipTos.address',
+                'defaultCarrier',
+                'defaultSampleCarrier',
+                'defaultSampleShippingService',
+                'defaultShippingService',
+            ],
         ]);
     }
 
@@ -75,7 +89,16 @@ class CustomerRepository extends AbstractRepository
         $customers = $this->client->getDtoArray('api/customer', Customer::class, [
             'company' => $company->id,
             'search' => "#$customerNumber",
-            'with' => ['country', 'primaryAddress', 'employees.emailAddress', 'customFields'],
+            'with' => [
+                'country',
+                'customFields',
+                'defaultCarrier',
+                'defaultSampleCarrier',
+                'defaultSampleShippingService',
+                'defaultShippingService',
+                'employees.emailAddress',
+                'primaryAddress',
+            ],
         ]);
 
         foreach ($customers as $customer) {

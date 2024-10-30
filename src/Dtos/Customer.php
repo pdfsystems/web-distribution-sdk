@@ -43,6 +43,11 @@ class Customer extends AbstractDto implements HasCustomFields
     #[CastWith(ArrayCaster::class, CustomField::class)]
     public array $custom_fields = [];
 
+    public ?Carrier $default_carrier;
+    public ?ShippingService $default_shipping_service;
+    public ?Carrier $default_sample_carrier;
+    public ?ShippingService $default_sample_shipping_service;
+
     public function getAllCustomFields(): array
     {
         return $this->custom_fields;
