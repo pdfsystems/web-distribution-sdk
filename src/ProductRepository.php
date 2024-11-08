@@ -7,6 +7,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\FreightResponse;
 use Pdfsystems\WebDistributionSdk\Dtos\Product;
+use Pdfsystems\WebDistributionSdk\Dtos\Simple\Product as SimpleProduct;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
 use Pdfsystems\WebDistributionSdk\Exceptions\ResponseException;
 use Pdfsystems\WebDistributionSdk\Requests\FreightRequest;
@@ -130,6 +131,27 @@ class ProductRepository extends AbstractRepository
     }
 
     /**
+     * @throws UnknownProperties
+     * @throws GuzzleException
+     */
+    public function findSimple(Company $company, string $itemNumber): SimpleProduct
+    {
+        try {
+            return $this->client->getDto('api/simple/item/lookup', SimpleProduct::class, [
+                'sku' => $itemNumber,
+            ], [
+                'X-Company-ID' => $company->id,
+            ]);
+        } catch (ResponseException $e) {
+            if ($e->getCode() === 404) {
+                throw new NotFoundException("Product $itemNumber not found", $e->getCode(), $e);
+            } else {
+                throw $e;
+            }
+        }
+    }
+
+    /**
      * @throws GuzzleException
      * @throws UnknownProperties
      */
@@ -150,8 +172,6 @@ class ProductRepository extends AbstractRepository
             'custom_fields' => $product->custom_fields_item,
             'date_discontinued' => $product->discontinued_date,
         ]);
-
-        return $this->find($product->company, $product->item_number);
     }
 
     /**
