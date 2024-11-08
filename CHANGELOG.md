@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.21.0 - 2024-11-08
+
+Added simple item API
+
 ## 2.20.0 - 2024-10-30
 
 - Added customer iterator
