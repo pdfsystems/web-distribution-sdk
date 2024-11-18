@@ -13,4 +13,6 @@ class ResaleCertificate extends AbstractDto
     public ?string $resale_number;
 
     public ?DateTimeImmutable $expiration_date;
+    public bool $approved = true;
+    public ?File $file;
 }

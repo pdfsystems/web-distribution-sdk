@@ -111,7 +111,7 @@ class CustomerRepository extends AbstractRepository
     public function findById(int $id): Customer
     {
         return $this->client->getDto('api/customer/' . $id, Customer::class, [
-            'with' => ['customFields'],
+            'with' => ['customFields', 'resaleCertificates.file'],
         ]);
     }
 
@@ -134,6 +134,7 @@ class CustomerRepository extends AbstractRepository
                 'defaultShippingService',
                 'employees.emailAddress',
                 'primaryAddress',
+                'resaleCertificates.file',
             ],
         ]);
 
