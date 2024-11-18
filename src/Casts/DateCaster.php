@@ -10,7 +10,9 @@ class DateCaster implements Caster
 {
     public function cast(mixed $value): ?DateTimeImmutable
     {
-        if (is_string($value)) {
+        if (empty($value)) {
+            return null;
+        } elseif (is_string($value)) {
             try {
                 return new DateTimeImmutable($value);
             } catch (Exception) {
