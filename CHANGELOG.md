@@ -2,6 +2,13 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.22.0 - 2024-11-18
+
+Add resale certificate features
+
+- Files
+- Approval status
+
 ## 2.21.0 - 2024-11-08
 
 Added simple item API
