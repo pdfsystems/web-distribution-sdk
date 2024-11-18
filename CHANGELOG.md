@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.23.2 - 2024-11-18
+
+Fix DateCaster
+
 ## 2.23.1 - 2024-11-18
 
 Update rpungello/sdk-client
