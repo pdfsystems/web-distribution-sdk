@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.23.0 - 2024-11-18
+
+Update rpungello/sdk-client
+
 ## 2.22.0 - 2024-11-18
 
 Add resale certificate features
