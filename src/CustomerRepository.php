@@ -161,6 +161,10 @@ class CustomerRepository extends AbstractRepository
         }
         $body['rep'] = $rep->id;
 
+        if (! empty($customer->country)) {
+            $body['country_id'] = $customer->country->id;
+        }
+
         $response = $this->client->postJsonAsDto('api/customer', $body, Customer::class);
         $customer->id = $response->id;
 
