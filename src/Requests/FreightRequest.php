@@ -17,7 +17,7 @@ class FreightRequest extends Request
     #[Assert\Length(2)]
     public string $country;
 
-    public function __construct(string $postalCode, int $quantity = 1, string $country = 'US')
+    public function __construct(string $postalCode, float $quantity = 1, string $country = 'US')
     {
         parent::__construct();
         $this->postalCode = $postalCode;
