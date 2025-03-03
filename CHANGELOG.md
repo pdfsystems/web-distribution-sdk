@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.23.4 - 2025-03-03
+
+Fix freight requests with fractional quantities
+
 ## 2.23.3 - 2025-01-17
 
 Fixed assigning countries to new customers
