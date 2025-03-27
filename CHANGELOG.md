@@ -2,6 +2,14 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.23.5 - 2025-03-27
+
+Added boolean flags to customers
+
+- `purchasing_agent`
+- `specifier`
+- `created_by_rep`
+
 ## 2.23.4 - 2025-03-03
 
 Fix freight requests with fractional quantities
