@@ -22,6 +22,12 @@ class Customer extends AbstractDto implements HasCustomFields
 
     public ?Rep $rep;
 
+    public bool $purchasing_agent = false;
+
+    public bool $specifier = false;
+
+    public bool $created_by_rep = false;
+
     #[CastWith(ArrayCaster::class, ShipTo::class)]
     public array $ship_tos = [];
 
