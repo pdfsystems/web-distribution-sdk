@@ -7,6 +7,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\FreightResponse;
 use Pdfsystems\WebDistributionSdk\Dtos\Product;
+use Pdfsystems\WebDistributionSdk\Dtos\ProductTariffs;
 use Pdfsystems\WebDistributionSdk\Dtos\Simple\Product as SimpleProduct;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
 use Pdfsystems\WebDistributionSdk\Exceptions\ResponseException;
@@ -194,6 +195,21 @@ class ProductRepository extends AbstractRepository
 
         return new FreightResponse(
             $this->client->getJson("api/item/$product/freight", $query)
+        );
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws UnknownProperties
+     */
+    public function tariffs(Product|int $product): ProductTariffs
+    {
+        if ($product instanceof Product) {
+            $product = $product->id;
+        }
+
+        return new ProductTariffs(
+            $this->client->getJson("api/item/$product/tariffs")
         );
     }
 }
