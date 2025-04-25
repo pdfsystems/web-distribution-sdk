@@ -7,7 +7,7 @@ class CustomField extends AbstractDto
     public ?int $type;
     public ?string $key;
     public ?string $name;
-    public ?string $current;
+    public string|array|null $current;
     public ?string $formatted;
     public ?string $default;
     public bool $display_on_transaction = false;
