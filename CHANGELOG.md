@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.24.0 - 2025-04-25
+
+Added function to get tariffs for products
+
 ## 2.23.5 - 2025-03-27
 
 Added boolean flags to customers
