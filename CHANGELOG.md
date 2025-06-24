@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.25.0 - 2025-06-24
+
+Added ability to calculate freight for transactions
+
 ## 2.24.1 - 2025-04-25
 
 Fix issues with array-backed custom fields
