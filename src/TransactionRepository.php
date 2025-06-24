@@ -10,6 +10,7 @@ use Pdfsystems\WebDistributionSdk\Dtos\Allocation;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\Inventory;
 use Pdfsystems\WebDistributionSdk\Dtos\Transaction;
+use Pdfsystems\WebDistributionSdk\Dtos\TransactionFreightResponse;
 use Pdfsystems\WebDistributionSdk\Dtos\TransactionItem;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
 use Pdfsystems\WebDistributionSdk\Exceptions\ResponseException;
@@ -263,6 +264,19 @@ class TransactionRepository extends AbstractRepository
     public function allocateId(int $itemId, array $allocations): void
     {
         $this->client->post("api/transaction-item/$itemId/reallocate", $allocations);
+    }
+
+    /**
+     * @throws UnknownProperties
+     * @throws GuzzleException
+     */
+    public function freight(Transaction|int $transaction): TransactionFreightResponse
+    {
+        if ($transaction instanceof Transaction) {
+            $transaction = $transaction->id;
+        }
+
+        return $this->client->getDto("api/transaction/$transaction/freight", TransactionFreightResponse::class);
     }
 
     /**
