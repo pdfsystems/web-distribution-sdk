@@ -27,9 +27,9 @@ class Client extends SdkClient
     /**
      * @throws GuzzleException
      */
-    public function __construct(protected array $credentials, protected string $baseUri = 'https://distribution.pdfsystems.com', protected ?HandlerStack $handler = null)
+    public function __construct(protected array $credentials, protected string $baseUri = 'https://distribution.pdfsystems.com', protected ?HandlerStack $handler = null, ?string $userAgent = null)
     {
-        parent::__construct($this->baseUri, $handler, static::getUserAgent(), cookies: static::requiresCookies($this->credentials));
+        parent::__construct($this->baseUri, $handler, $userAgent ?: static::getUserAgent(), cookies: static::requiresCookies($this->credentials));
 
         if (! empty($this->credentials['email']) && ! empty($this->credentials['password'])) {
             $this->guzzle->post('login', [
