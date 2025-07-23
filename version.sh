@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Read the current version from composer.json
-CURRENT_VERSION=$(jq -r ".version" composer.json)
+CURRENT_VERSION=$(git describe --tags --abbrev=0)
 
 # Read the increment argument (if provided)
 INCREMENT=$1
