@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) pdf-systems-inc <rob@pdfsystems.com>
+Copyright (c) PDF Systems, Inc. <rob@pdfsystems.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

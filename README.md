@@ -1,8 +1,6 @@
 # PHP SDK for Web Distribution
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/pdf-systems-inc/web-distribution-sdk.svg?style=flat-square)](https://packagist.org/packages/pdf-systems-inc/web-distribution-sdk)
-[![Tests](https://github.com/pdf-systems-inc/web-distribution-sdk/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/pdf-systems-inc/web-distribution-sdk/actions/workflows/run-tests.yml)
-[![Total Downloads](https://img.shields.io/packagist/dt/pdf-systems-inc/web-distribution-sdk.svg?style=flat-square)](https://packagist.org/packages/pdf-systems-inc/web-distribution-sdk)
+[![Tests](https://github.com/pdfsystems/web-distribution-sdk/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/pdfsystems/web-distribution-sdk/actions/workflows/run-tests.yml)
 
 PHP SDK for interfacing With PDF Systems' Web Distribution ERP system for home furnishing companies.
 
@@ -11,7 +9,7 @@ PHP SDK for interfacing With PDF Systems' Web Distribution ERP system for home f
 You can install the package via composer:
 
 ```bash
-composer require pdf-systems-inc/web-distribution-sdk
+composer require pdfsystems/web-distribution-sdk
 ```
 
 ## Usage
@@ -41,7 +39,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Rob Pungello](https://github.com/pdf-systems-inc)
+- [Rob Pungello](https://github.com/rpungello)
 - [All Contributors](../../contributors)
 
 ## License
