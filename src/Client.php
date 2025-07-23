@@ -45,7 +45,7 @@ class Client extends SdkClient
 
     private static function getVersion(): string
     {
-        return InstalledVersions::getVersion('pdf-systems-inc/web-distribution-sdk');
+        return InstalledVersions::getVersion('pdfsystems/web-distribution-sdk');
     }
 
     public function get(string $uri, array $query = [], array $headers = []): ResponseInterface
