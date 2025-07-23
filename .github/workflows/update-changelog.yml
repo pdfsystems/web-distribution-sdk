@@ -1,4 +1,4 @@
-name: "Update Changelog"
+name: Update Changelog
 
 on:
   release:
@@ -7,6 +7,8 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout code
