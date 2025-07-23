@@ -1,9 +1,11 @@
 {
-    "name": "pdf-systems-inc/web-distribution-sdk",
+    "name": "pdfsystems/web-distribution-sdk",
     "description": "PHP SDK for Web Distribution",
     "keywords": [
-        "pdf-systems-inc",
-        "web-distribution-sdk"
+        "pdf-systems",
+        "web-distribution",
+        "distribution",
+        "sdk"
     ],
     "homepage": "https://github.com/pdf-systems-inc/web-distribution-sdk",
     "license": "MIT",
