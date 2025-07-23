@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.26.1 - 2025-07-23
+
+Fix changelog
+
 ## 2.25.1 - 2025-06-24
 
 Fix version number
