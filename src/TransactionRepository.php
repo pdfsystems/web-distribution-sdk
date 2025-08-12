@@ -2,7 +2,6 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
-use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Uri;
@@ -71,6 +70,7 @@ class TransactionRepository extends AbstractRepository
     /**
      * @throws UnknownProperties
      * @throws GuzzleException
+     * @throws NotFoundException
      */
     public function findByTransactionNumber(Company $company, string $transactionNumber): Transaction
     {
@@ -81,13 +81,13 @@ class TransactionRepository extends AbstractRepository
             'transaction_number_exact' => true,
         ];
 
-        try {
-            $response = $this->client->getJson("api/transaction", $requestOptions);
+        $response = $this->client->getJson("api/transaction", $requestOptions);
 
-            return new Transaction($response[0]);
-        } catch (RequestException) {
+        if (empty($response)) {
             throw new NotFoundException("Transaction with number $transactionNumber not found");
         }
+
+        return new Transaction($response[0]);
     }
 
     /**
