@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.26.3 - 2025-08-12
+
+Added warehouse location to allocations
+
 ## 2.26.2 - 2025-08-12
 
 Fix exceptions when loading orders by number
