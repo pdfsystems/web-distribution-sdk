@@ -19,5 +19,8 @@ class Allocation extends AbstractDto
     #[MapFrom('piece.warehouse')]
     public ?Warehouse $warehouse;
 
+    #[MapFrom('piece.warehouse_location')]
+    public ?string $warehouse_location;
+
     public float $quantity;
 }
