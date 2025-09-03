@@ -4,6 +4,7 @@ namespace Pdfsystems\WebDistributionSdk;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
+use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\Inventory;
 use Pdfsystems\WebDistributionSdk\Dtos\Product;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
@@ -30,6 +31,24 @@ class InventoryRepository extends AbstractRepository
             return new Inventory($response);
         } catch (RequestException) {
             throw new NotFoundException("Inventory with id $id not found");
+        }
+    }
+
+    /**
+     * @throws UnknownProperties
+     * @throws GuzzleException
+     */
+    public function findByBarcode(Company|int $company, string $barcode): Inventory
+    {
+        try {
+            $response = $this->client->getJson('api/inventory/barcode', [
+                'company_id' => $company instanceof Company ? $company->id : $company,
+                'code' => $barcode,
+            ]);
+
+            return new Inventory($response);
+        } catch (RequestException) {
+            throw new NotFoundException("Inventory with barcode $barcode not found");
         }
     }
 
