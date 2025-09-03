@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.27.0 - 2025-09-03
+
+Add helper for loading inventory records by barcode
+
 ## 2.26.3 - 2025-08-12
 
 Added warehouse location to allocations
