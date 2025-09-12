@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 2.27.1 - 2025-09-12
+
+Added `inventoried` flag to product DTO
+
 ## 2.27.0 - 2025-09-03
 
 Add helper for loading inventory records by barcode
