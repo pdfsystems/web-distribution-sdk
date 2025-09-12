@@ -42,6 +42,9 @@ class Product extends AbstractDto implements HasCustomFields
     #[MapFrom('style.primary_price.wholesale_price')]
     public ?float $price;
 
+    #[MapFrom('style.inventoried')]
+    public bool $inventoried = true;
+
     public ?string $warehouse_location;
 
     #[MapFrom('sample_warehouse_location')]
