@@ -22,32 +22,6 @@ use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class Client extends SdkClient
 {
-    protected ?GuzzleClient $guzzle;
-
-    /**
-     * @throws GuzzleException
-     */
-    public function __construct(protected array $credentials, protected string $baseUri = 'https://distribution.pdfsystems.com', protected ?HandlerStack $handler = null, ?string $userAgent = null)
-    {
-        parent::__construct($this->baseUri, $handler, $userAgent ?: static::getUserAgent(), cookies: static::requiresCookies($this->credentials));
-
-        if (! empty($this->credentials['email']) && ! empty($this->credentials['password'])) {
-            $this->guzzle->post('login', [
-                RequestOptions::JSON => $this->credentials,
-            ]);
-        }
-    }
-
-    private static function getUserAgent(): string
-    {
-        return 'Web Distribution SDK/' . static::getVersion();
-    }
-
-    private static function getVersion(): string
-    {
-        return InstalledVersions::getVersion('pdfsystems/web-distribution-sdk');
-    }
-
     public function get(string $uri, array $query = [], array $headers = []): ResponseInterface
     {
         try {
@@ -144,13 +118,7 @@ class Client extends SdkClient
             $eagerRelations[] = 'apiKeys';
         }
 
-        return new User(
-            json_decode($this->guzzle->get('api/user/me', [
-                RequestOptions::QUERY => [
-                    'with' => $eagerRelations,
-                ],
-            ])->getBody()->getContents(), JSON_OBJECT_AS_ARRAY)
-        );
+        return $this->getDto('api/user/me', User::class, ['with' => $eagerRelations]);
     }
 
     /**

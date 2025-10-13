@@ -4,6 +4,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Pdfsystems\WebDistributionSdk\Client;
+use Pdfsystems\WebDistributionSdk\Drivers\GuzzleDriver;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\Currency;
 use Pdfsystems\WebDistributionSdk\Dtos\Line;
@@ -28,7 +29,7 @@ it('can load a list of companies', function () {
     $mock = new MockHandler([
         new Response(200, ['content-type' => 'application/json'], json_encode([$mockCompany->toArray()])),
     ]);
-    $client = new Client(['token' => 'foobar'], handler: HandlerStack::create($mock));
+    $client = new Client(new GuzzleDriver('foobar', handler: HandlerStack::create($mock)));
 
     $response = $client->companies()->list();
 
