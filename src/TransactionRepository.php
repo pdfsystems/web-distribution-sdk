@@ -21,7 +21,6 @@ class TransactionRepository extends AbstractRepository
     /**
      * @param int $id
      * @return Transaction
-     * @throws GuzzleException
      * @throws UnknownProperties
      */
     public function findById(int $id): Transaction
@@ -37,7 +36,6 @@ class TransactionRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function iterate(Company $company, callable $callback, array $options = [], int $perPage = 128): void
     {
@@ -69,7 +67,6 @@ class TransactionRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      * @throws NotFoundException
      */
     public function findByTransactionNumber(Company $company, string $transactionNumber): Transaction
@@ -122,7 +119,7 @@ class TransactionRepository extends AbstractRepository
     }
 
     /**
-     * @throws ResponseException|GuzzleException
+     * @throws ResponseException
      */
     public function getNotificationResponse(Transaction $transaction): ResponseInterface
     {
@@ -130,7 +127,7 @@ class TransactionRepository extends AbstractRepository
     }
 
     /**
-     * @throws ResponseException|GuzzleException
+     * @throws ResponseException
      */
     public function saveNotification(Transaction $transaction, string $path): bool
     {
@@ -144,7 +141,7 @@ class TransactionRepository extends AbstractRepository
     }
 
     /**
-     * @throws ResponseException|GuzzleException
+     * @throws ResponseException
      */
     public function getPickTicketResponse(Transaction $transaction): ResponseInterface
     {
@@ -152,7 +149,7 @@ class TransactionRepository extends AbstractRepository
     }
 
     /**
-     * @throws ResponseException|GuzzleException
+     * @throws ResponseException
      */
     public function savePickTicket(Transaction $transaction, string $path): bool
     {
@@ -166,7 +163,7 @@ class TransactionRepository extends AbstractRepository
     }
 
     /**
-     * @throws ResponseException|GuzzleException
+     * @throws ResponseException
      */
     public function getInvoiceResponse(Transaction $transaction): ResponseInterface
     {
@@ -174,7 +171,7 @@ class TransactionRepository extends AbstractRepository
     }
 
     /**
-     * @throws ResponseException|GuzzleException
+     * @throws ResponseException
      */
     public function saveInvoice(Transaction $transaction, string $path): bool
     {
@@ -208,9 +205,6 @@ class TransactionRepository extends AbstractRepository
         }
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function unallocate(TransactionItem|int $item): void
     {
         if (is_int($item)) {
@@ -220,17 +214,11 @@ class TransactionRepository extends AbstractRepository
         }
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function allocateSingle(TransactionItem $item, Inventory $piece): void
     {
         $this->allocateSingleId($item->id, $piece->id, $item->quantity_ordered);
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function allocateSingleId(int $itemId, int $pieceId, float $quantity): void
     {
         $this->allocateId($itemId, [
@@ -242,7 +230,6 @@ class TransactionRepository extends AbstractRepository
      * @param TransactionItem $item
      * @param Allocation[] $allocations
      * @return void
-     * @throws GuzzleException
      */
     public function allocate(TransactionItem $item, array $allocations): void
     {
@@ -259,7 +246,6 @@ class TransactionRepository extends AbstractRepository
      * @param int $itemId
      * @param array $allocations
      * @return void
-     * @throws GuzzleException
      */
     public function allocateId(int $itemId, array $allocations): void
     {
@@ -268,7 +254,6 @@ class TransactionRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function freight(Transaction|int $transaction): TransactionFreightResponse
     {

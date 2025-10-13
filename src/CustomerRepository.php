@@ -2,7 +2,6 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
-use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\Customer;
 use Pdfsystems\WebDistributionSdk\Dtos\Rep;
@@ -20,7 +19,6 @@ class CustomerRepository extends AbstractRepository
     /**
      * @param Company $company
      * @return Customer[]
-     * @throws GuzzleException
      * @throws UnknownProperties
      */
     public function list(Company $company): array
@@ -45,7 +43,6 @@ class CustomerRepository extends AbstractRepository
      * @param array $options
      * @param int $perPage
      * @return void
-     * @throws GuzzleException
      * @throws UnknownProperties
      */
     public function iterate(Company $company, callable $callback, array $options = [], int $perPage = 128): void
@@ -82,7 +79,6 @@ class CustomerRepository extends AbstractRepository
      * @param bool $masterRep
      * @param int $maxResults
      * @return Customer[]
-     * @throws GuzzleException
      * @throws UnknownProperties
      */
     public function search(Company $company, string $query, ?int $repId = null, bool $masterRep = false, int $maxResults = 50): array
@@ -106,7 +102,6 @@ class CustomerRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function findById(int $id): Customer
     {
@@ -117,7 +112,6 @@ class CustomerRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function findByCustomerNumber(Company $company, string $customerNumber): Customer
     {
@@ -149,7 +143,6 @@ class CustomerRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function create(Company $company, Rep $rep, Customer $customer): Customer
     {
@@ -193,7 +186,6 @@ class CustomerRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function update(Customer $customer): Customer
     {
@@ -202,7 +194,6 @@ class CustomerRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      * @throws RuntimeException
      * @throws ValidationException
      */
@@ -234,7 +225,6 @@ class CustomerRepository extends AbstractRepository
      * @param ShipTo $shipTo
      * @return ShipTo
      * @throws ValidationException
-     * @throws GuzzleException
      */
     public function addShipTo(Customer $customer, ShipTo $shipTo): ShipTo
     {

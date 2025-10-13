@@ -2,7 +2,6 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\CustomField;
@@ -15,7 +14,6 @@ class CompanyRepository extends AbstractRepository
 {
     /**
      * @return array
-     * @throws GuzzleException
      * @throws UnknownProperties
      */
     public function list(): array
@@ -27,7 +25,6 @@ class CompanyRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      * @throws ResponseException
      */
     public function findById(int $id): Company
@@ -57,7 +54,6 @@ class CompanyRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function customFields(Company $company, string $resourceClass): array
     {

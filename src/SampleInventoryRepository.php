@@ -2,7 +2,6 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
-use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\WebDistributionSdk\Dtos\Product;
 use Pdfsystems\WebDistributionSdk\Dtos\SampleInventory;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
@@ -15,7 +14,6 @@ class SampleInventoryRepository extends AbstractRepository
      * @param int $sampleTypeId
      *
      * @return SampleInventory
-     * @throws GuzzleException
      * @throws UnknownProperties
      */
     public function getOnHand(Product|int $product, int $warehouseId, int $sampleTypeId): SampleInventory
@@ -41,7 +39,6 @@ class SampleInventoryRepository extends AbstractRepository
      * @param string $adjustmentType R = Receive, A = Adjust, P = Physical, S = Shipment, L = Release
      * @param int|null $userId
      * @return SampleInventory
-     * @throws GuzzleException
      * @throws UnknownProperties
      */
     public function receive(Product|int $product, int $warehouseId, int $sampleTypeId, int $quantity = 1, string $adjustmentType = 'R', ?int $userId = null): SampleInventory

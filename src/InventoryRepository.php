@@ -2,7 +2,6 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\Inventory;
@@ -14,7 +13,6 @@ class InventoryRepository extends AbstractRepository
 {
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function findById(int $id): Inventory
     {
@@ -36,7 +34,6 @@ class InventoryRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function findByBarcode(Company|int $company, string $barcode): Inventory
     {
@@ -54,7 +51,6 @@ class InventoryRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function listByProduct(Product|int $product): array
     {
@@ -98,7 +94,6 @@ class InventoryRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function update(Inventory $piece): Inventory
     {

@@ -2,7 +2,6 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
-use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\WebDistributionSdk\Dtos\Country;
 use Pdfsystems\WebDistributionSdk\Dtos\State;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
@@ -12,7 +11,6 @@ class StateRepository extends AbstractRepository
 {
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function list(Country $country): array
     {
@@ -23,7 +21,6 @@ class StateRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function find(Country $country, string $code): State
     {

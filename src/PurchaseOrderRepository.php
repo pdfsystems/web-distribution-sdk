@@ -2,7 +2,6 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
-use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\WebDistributionSdk\Dtos\IncomingPurchaseOrder;
 use Pdfsystems\WebDistributionSdk\Dtos\Product;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
@@ -11,7 +10,6 @@ class PurchaseOrderRepository extends AbstractRepository
 {
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function listByProduct(Product|int $product): array
     {

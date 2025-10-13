@@ -12,7 +12,6 @@ class CountryRepository extends AbstractRepository
 {
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function list(): array
     {
@@ -21,7 +20,6 @@ class CountryRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function find(string $code): Country
     {

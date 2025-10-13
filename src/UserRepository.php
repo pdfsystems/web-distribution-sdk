@@ -15,7 +15,6 @@ class UserRepository extends AbstractRepository
 {
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function findById(int $id): User
     {
@@ -24,7 +23,6 @@ class UserRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function listForCompany(Company $company): array
     {
@@ -36,7 +34,6 @@ class UserRepository extends AbstractRepository
      * @param string $name
      * @param string $repCode
      * @return ProjectUser
-     * @throws GuzzleException
      */
     public function projectUser(string $emailAddress, string $name, string $repCode): ProjectUser
     {
@@ -49,15 +46,14 @@ class UserRepository extends AbstractRepository
 
     /**
      * @param string $token
-     * @return Uri
+     * @return string
      */
-    public function getSsoLoginUri(string $token): Uri
+    public function getSsoLoginUri(string $token): string
     {
-        return $this->client->getUri("login-sso", compact('token'));
+        return $this->client->getRelativeUri("login-sso", compact('token'));
     }
 
     /**
-     * @throws GuzzleException
      */
     public function createReport(Company $company, string $name, SplFileInfo $file = null, User $user = null): Report
     {

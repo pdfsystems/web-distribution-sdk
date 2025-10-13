@@ -2,7 +2,6 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
-use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\Rep;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
@@ -13,7 +12,6 @@ class RepRepository extends AbstractRepository
     /**
      * @param Company $company
      * @return Rep[]
-     * @throws GuzzleException
      * @throws UnknownProperties
      */
     public function list(Company $company): array
@@ -26,7 +24,6 @@ class RepRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function findById(int $id): Rep
     {
@@ -37,7 +34,6 @@ class RepRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function findByCode(Company $company, string $repCode): Rep
     {

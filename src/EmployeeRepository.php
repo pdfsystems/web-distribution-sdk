@@ -2,8 +2,6 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
-use GuzzleHttp\Exception\GuzzleException;
-use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\Employee;
 use Pdfsystems\WebDistributionSdk\Exceptions\ValidationException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
@@ -12,7 +10,6 @@ class EmployeeRepository extends AbstractRepository
 {
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function findById(int $id): Employee
     {
@@ -20,7 +17,6 @@ class EmployeeRepository extends AbstractRepository
     }
 
     /**
-     * @throws GuzzleException
      * @throws ValidationException
      */
     public function create(string $modelKey, int $modelId, Employee $employee): Employee

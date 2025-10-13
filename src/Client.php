@@ -2,13 +2,7 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
-use Composer\InstalledVersions;
-use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\BadResponseException;
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Uri;
-use GuzzleHttp\RequestOptions;
 use Pdfsystems\WebDistributionSdk\Dtos\ApiKey;
 use Pdfsystems\WebDistributionSdk\Dtos\User;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
@@ -72,37 +66,11 @@ class Client extends SdkClient
         }
     }
 
-    private static function requiresCookies(array $credentials): bool
-    {
-        return ! empty($credentials['email']) && ! empty($credentials['password']);
-    }
-
-    protected function getGuzzleClientConfig(): array
-    {
-        $config = parent::getGuzzleClientConfig();
-        if (! empty($this->credentials['token'])) {
-            $config['headers']['x-api-key'] = $this->credentials['token'];
-        }
-
-        return $config;
-    }
-
-    public function getBaseUri(): Uri
-    {
-        return new Uri($this->baseUri);
-    }
-
-    public function getUri(string $path, array $query = []): Uri
-    {
-        return $this->getBaseUri()->withPath($path)->withQuery(http_build_query($query));
-    }
-
     /**
      * Gets the currently authenticated user
      *
      * @param array $options
      * @return User
-     * @throws GuzzleException
      * @throws UnknownProperties
      */
     public function getAuthenticatedUser(array $options = []): User
@@ -124,7 +92,6 @@ class Client extends SdkClient
     /**
      * @param ApiKey $key
      * @return ApiKey
-     * @throws GuzzleException
      * @throws UnknownProperties
      */
     public function createApiKey(ApiKey $key): ApiKey

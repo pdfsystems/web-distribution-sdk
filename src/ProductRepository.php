@@ -3,7 +3,6 @@
 namespace Pdfsystems\WebDistributionSdk;
 
 use GuzzleHttp\Exception\BadResponseException;
-use GuzzleHttp\Exception\GuzzleException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\FreightResponse;
 use Pdfsystems\WebDistributionSdk\Dtos\Product;
@@ -22,7 +21,6 @@ class ProductRepository extends AbstractRepository
      * @param array $options
      * @param int $perPage
      * @return void
-     * @throws GuzzleException
      * @throws UnknownProperties
      */
     public function iterate(Company $company, callable $callback, array $options = [], int $perPage = 128): void
@@ -68,7 +66,6 @@ class ProductRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      * @throws ResponseException
      */
     public function find(Company $company, string $itemNumber): Product
@@ -101,7 +98,6 @@ class ProductRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      * @throws ResponseException
      */
     public function findById(int $id): Product
@@ -133,7 +129,6 @@ class ProductRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function findSimple(Company $company, string $itemNumber): SimpleProduct
     {
@@ -153,7 +148,6 @@ class ProductRepository extends AbstractRepository
     }
 
     /**
-     * @throws GuzzleException
      * @throws UnknownProperties
      */
     public function update(Product $product): Product
@@ -176,7 +170,6 @@ class ProductRepository extends AbstractRepository
     }
 
     /**
-     * @throws GuzzleException
      * @throws UnknownProperties
      */
     public function freight(Product|int $product, FreightRequest $request): FreightResponse
@@ -199,7 +192,6 @@ class ProductRepository extends AbstractRepository
     }
 
     /**
-     * @throws GuzzleException
      * @throws UnknownProperties
      */
     public function tariffs(Product|int $product): ProductTariffs

@@ -2,7 +2,6 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\SampleTransaction;
@@ -15,7 +14,6 @@ class SampleTransactionRepository extends AbstractRepository
     /**
      * @param int $id
      * @return SampleTransaction
-     * @throws GuzzleException
      * @throws UnknownProperties
      */
     public function findById(int $id): SampleTransaction
@@ -29,9 +27,6 @@ class SampleTransactionRepository extends AbstractRepository
         }
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function create(SampleTransaction $sampleTransaction): SampleTransaction
     {
         $response = $this->client->postJsonAsDto('api/sample-transaction', $this->mapDtoToArray($sampleTransaction), SampleTransaction::class);
@@ -51,7 +46,6 @@ class SampleTransactionRepository extends AbstractRepository
 
     /**
      * @throws UnknownProperties
-     * @throws GuzzleException
      */
     public function iterate(Company $company, callable $callback, array $options = [], int $perPage = 128): void
     {
