@@ -9,7 +9,7 @@ class LaravelDriver extends \Rpungello\SdkClient\Drivers\LaravelDriver
 {
     use WebDistributionDriver;
 
-    public function __construct(Application $app, string $baseUri, private readonly string $apiKey, private readonly ?string $userAgent = null)
+    public function __construct(Application $app, private readonly string $apiKey, private readonly ?string $userAgent = null, string $baseUri = 'https://distribution.pdfsystems.com')
     {
         parent::__construct($app, $baseUri);
     }
