@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 3.0.0 - 2025-10-14
+
+Upgrade to new version of base SDK with support for the Laravel HTTP client
+
 ## 2.27.1 - 2025-09-12
 
 Added `inventoried` flag to product DTO
