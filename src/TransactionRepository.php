@@ -2,9 +2,6 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\Uri;
 use Pdfsystems\WebDistributionSdk\Dtos\Allocation;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\Inventory;
@@ -14,6 +11,7 @@ use Pdfsystems\WebDistributionSdk\Dtos\TransactionItem;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
 use Pdfsystems\WebDistributionSdk\Exceptions\ResponseException;
 use Psr\Http\Message\ResponseInterface;
+use Rpungello\SdkClient\Exceptions\RequestException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class TransactionRepository extends AbstractRepository
@@ -93,14 +91,14 @@ class TransactionRepository extends AbstractRepository
      * If they do not, when attempting to load the URL an error will be displayed.
      *
      * @param Transaction $transaction
-     * @return Uri
+     * @return string
      */
-    public function getPaymentUri(Transaction $transaction): Uri
+    public function getPaymentUri(Transaction $transaction): string
     {
-        return $this->client->getBaseUri()->withPath("/client/payment")->withQuery(http_build_query([
+        return $this->client->getRelativeUri("/client/payment", [
             'transaction' => $transaction->id,
             'key' => $transaction->client_auth_key,
-        ]));
+        ]);
     }
 
     /**
@@ -108,14 +106,14 @@ class TransactionRepository extends AbstractRepository
      * Note that this requires the company in question to subscribe to the portal pages in Web Distribution.
      *
      * @param Transaction $transaction
-     * @return Uri
+     * @return string
      */
-    public function getPortalUri(Transaction $transaction): Uri
+    public function getPortalUri(Transaction $transaction): string
     {
-        return $this->client->getBaseUri()->withPath("/client/transaction/landing")->withQuery(http_build_query([
-            'id' => $transaction->id,
+        return $this->client->getRelativeUri("/client/transaction/landing", [
+            'transaction' => $transaction->id,
             'key' => $transaction->client_auth_key,
-        ]));
+        ]);
     }
 
     /**
@@ -200,7 +198,7 @@ class TransactionRepository extends AbstractRepository
             $response = $this->client->post("api/transaction/$transaction/refresh-order-track");
 
             return $response->getStatusCode() === 202;
-        } catch (GuzzleException) {
+        } catch (RequestException) {
             return false;
         }
     }

@@ -2,12 +2,12 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
-use GuzzleHttp\Exception\RequestException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\CustomField;
 use Pdfsystems\WebDistributionSdk\Exceptions\ForbiddenException;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
 use Pdfsystems\WebDistributionSdk\Exceptions\ResponseException;
+use Rpungello\SdkClient\Exceptions\RequestException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class CompanyRepository extends AbstractRepository
@@ -42,9 +42,9 @@ class CompanyRepository extends AbstractRepository
 
             return new Company($response);
         } catch (RequestException $e) {
-            if ($e->getCode() === 403) {
+            if ($e->getHttpStatusCode() === 403) {
                 throw new ForbiddenException("You do not have permission to access company with id $id");
-            } elseif ($e->getCode() === 404 || $e->getCode() === 500) {
+            } elseif ($e->getHttpStatusCode() === 404 || $e->getHttpStatusCode() === 500) {
                 throw new NotFoundException("Company with id $id not found");
             } else {
                 throw $e;
@@ -63,7 +63,7 @@ class CompanyRepository extends AbstractRepository
                 'resource_class' => $resourceClass,
             ]);
         } catch (RequestException $e) {
-            if ($e->getCode() === 403) {
+            if ($e->getHttpStatusCode() === 403) {
                 throw new ForbiddenException("You do not have permission to access company with id $company->id");
             } else {
                 throw $e;

@@ -2,8 +2,6 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Psr7\Uri;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\ProjectUser;
 use Pdfsystems\WebDistributionSdk\Dtos\Report;

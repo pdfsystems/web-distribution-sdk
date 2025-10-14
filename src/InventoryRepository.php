@@ -2,11 +2,11 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
-use GuzzleHttp\Exception\RequestException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\Inventory;
 use Pdfsystems\WebDistributionSdk\Dtos\Product;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
+use Rpungello\SdkClient\Exceptions\RequestException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class InventoryRepository extends AbstractRepository

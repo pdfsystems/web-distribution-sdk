@@ -2,11 +2,11 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
-use GuzzleHttp\Exception\RequestException;
 use Pdfsystems\WebDistributionSdk\Dtos\Company;
 use Pdfsystems\WebDistributionSdk\Dtos\SampleTransaction;
 use Pdfsystems\WebDistributionSdk\Dtos\SampleTransactionItem;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
+use Rpungello\SdkClient\Exceptions\RequestException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class SampleTransactionRepository extends AbstractRepository

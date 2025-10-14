@@ -2,13 +2,13 @@
 
 namespace Pdfsystems\WebDistributionSdk;
 
-use GuzzleHttp\Exception\BadResponseException;
 use Pdfsystems\WebDistributionSdk\Dtos\ApiKey;
 use Pdfsystems\WebDistributionSdk\Dtos\User;
 use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
 use Pdfsystems\WebDistributionSdk\Exceptions\ResponseException;
 use Pdfsystems\WebDistributionSdk\Exceptions\ValidationException;
 use Psr\Http\Message\ResponseInterface;
+use Rpungello\SdkClient\Exceptions\RequestException;
 use Rpungello\SdkClient\SdkClient;
 use Spatie\DataTransferObject\Arr;
 use Spatie\DataTransferObject\DataTransferObject;
@@ -20,8 +20,8 @@ class Client extends SdkClient
     {
         try {
             return parent::get($uri, $query, $headers);
-        } catch (BadResponseException $e) {
-            throw $this->handleBadResponseException($e);
+        } catch (RequestException $e) {
+            throw $this->handleRequestException($e);
         }
     }
 
@@ -29,8 +29,8 @@ class Client extends SdkClient
     {
         try {
             return parent::post($uri, $body, $headers);
-        } catch (BadResponseException $e) {
-            throw $this->handleBadResponseException($e);
+        } catch (RequestException $e) {
+            throw $this->handleRequestException($e);
         }
     }
 
@@ -38,12 +38,12 @@ class Client extends SdkClient
     {
         try {
             return parent::put($uri, $body, $headers);
-        } catch (BadResponseException $e) {
-            throw $this->handleBadResponseException($e);
+        } catch (RequestException $e) {
+            throw $this->handleRequestException($e);
         }
     }
 
-    protected function handleBadResponseException(BadResponseException $ex): ResponseException
+    protected function handleRequestException(RequestException $ex): ResponseException
     {
         if ($ex->getCode() === 422) {
             return $this->handleInvalidRequestDataException($ex);
@@ -52,15 +52,15 @@ class Client extends SdkClient
         return new ResponseException($ex->getMessage(), $ex->getCode(), $ex);
     }
 
-    private function handleInvalidRequestDataException(BadResponseException $ex): ResponseException
+    private function handleInvalidRequestDataException(RequestException $ex): ResponseException
     {
-        $response = json_decode($ex->getResponse()->getBody()->getContents(), true);
+        $response = $ex->getJsonResponseBody();
         $wdCode = Arr::get($response, 'code');
 
         if ($wdCode === 1000) {
             return new NotFoundException($response['description'], $ex->getCode(), $ex);
         } elseif ($wdCode === 1002) {
-            return new ValidationException("{$response['description']}: {$ex->getRequest()->getUri()->getPath()}", $response['errors'], $ex->getCode(), $ex);
+            return new ValidationException($response['description'], $response['errors'], $ex->getCode(), $ex);
         } else {
             return new ResponseException($response['description'], $ex->getCode());
         }
