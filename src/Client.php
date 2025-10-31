@@ -55,15 +55,15 @@ class Client extends SdkClient
     private function handleInvalidRequestDataException(RequestException $ex): ResponseException
     {
         $response = $ex->getJsonResponseBody();
-        $wdCode = Arr::get($response, 'code');
-
-        if ($wdCode === 1000) {
-            return new NotFoundException($response['description'], $ex->getCode(), $ex);
-        } elseif ($wdCode === 1002) {
-            return new ValidationException($response['description'], $response['errors'], $ex->getCode(), $ex);
-        } else {
-            return new ResponseException($response['description'], $ex->getCode());
+        if (empty($response)) {
+            return new ResponseException('An unknown error occurred.', $ex->getCode(), $ex);
         }
+
+        return match (Arr::get($response, 'code')) {
+            1000 => new NotFoundException($response['description'], $ex->getCode(), $ex),
+            1002 => new ValidationException($response['description'], $response['errors'], $ex->getCode(), $ex),
+            default => new ResponseException($response['description'], $ex->getCode()),
+        };
     }
 
     /**
