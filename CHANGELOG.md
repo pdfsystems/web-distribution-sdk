@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 3.0.2 - 2025-10-31
+
+Fix issues handling unexpected response errors
+
 ## 3.0.1 - 2025-10-14
 
 Update parameter order in `LaravelDriver`
