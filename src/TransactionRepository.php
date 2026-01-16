@@ -111,7 +111,7 @@ class TransactionRepository extends AbstractRepository
     public function getPortalUri(Transaction $transaction): string
     {
         return $this->client->getRelativeUri("/client/transaction/landing", [
-            'transaction' => $transaction->id,
+            'id' => $transaction->id,
             'key' => $transaction->client_auth_key,
         ]);
     }
