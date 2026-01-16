@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 3.0.3 - 2026-01-16
+
+Fix portal URI for transactions
+
 ## 3.0.2 - 2025-10-31
 
 Fix issues handling unexpected response errors
