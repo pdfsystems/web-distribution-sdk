@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 3.0.4 - 2026-01-20
+
+Allow `int` to be used when specifying transaction to get WD forms for
+
 ## 3.0.3 - 2026-01-16
 
 Fix portal URI for transactions
