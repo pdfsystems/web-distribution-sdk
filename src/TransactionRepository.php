@@ -119,15 +119,19 @@ class TransactionRepository extends AbstractRepository
     /**
      * @throws ResponseException
      */
-    public function getNotificationResponse(Transaction $transaction): ResponseInterface
+    public function getNotificationResponse(Transaction|int $transaction): ResponseInterface
     {
-        return $this->client->get("export/transaction/notification/$transaction->id");
+        if ($transaction instanceof Transaction) {
+            $transaction = $transaction->id;
+        }
+
+        return $this->client->get("export/transaction/notification/$transaction");
     }
 
     /**
      * @throws ResponseException
      */
-    public function saveNotification(Transaction $transaction, string $path): bool
+    public function saveNotification(Transaction|int $transaction, string $path): bool
     {
         if (! is_writable(dirname($path))) {
             return false;
@@ -141,15 +145,19 @@ class TransactionRepository extends AbstractRepository
     /**
      * @throws ResponseException
      */
-    public function getPickTicketResponse(Transaction $transaction): ResponseInterface
+    public function getPickTicketResponse(Transaction|int $transaction): ResponseInterface
     {
-        return $this->client->get("export/transaction/pick-ticket/$transaction->id");
+        if ($transaction instanceof Transaction) {
+            $transaction = $transaction->id;
+        }
+
+        return $this->client->get("export/transaction/pick-ticket/$transaction");
     }
 
     /**
      * @throws ResponseException
      */
-    public function savePickTicket(Transaction $transaction, string $path): bool
+    public function savePickTicket(Transaction|int $transaction, string $path): bool
     {
         if (! is_writable(dirname($path))) {
             return false;
@@ -163,15 +171,19 @@ class TransactionRepository extends AbstractRepository
     /**
      * @throws ResponseException
      */
-    public function getInvoiceResponse(Transaction $transaction): ResponseInterface
+    public function getInvoiceResponse(Transaction|int $transaction): ResponseInterface
     {
-        return $this->client->get("export/transaction/invoice/$transaction->id");
+        if ($transaction instanceof Transaction) {
+            $transaction = $transaction->id;
+        }
+
+        return $this->client->get("export/transaction/invoice/$transaction");
     }
 
     /**
      * @throws ResponseException
      */
-    public function saveInvoice(Transaction $transaction, string $path): bool
+    public function saveInvoice(Transaction|int $transaction, string $path): bool
     {
         if (! is_writable(dirname($path))) {
             return false;
