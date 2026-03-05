@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 3.0.6 - 2026-03-05
+
+Update dependencies
+
 ## 3.0.5 - 2026-03-05
 
 Re-throw connection exceptions
