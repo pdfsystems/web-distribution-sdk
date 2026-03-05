@@ -8,6 +8,7 @@ use Pdfsystems\WebDistributionSdk\Exceptions\NotFoundException;
 use Pdfsystems\WebDistributionSdk\Exceptions\ResponseException;
 use Pdfsystems\WebDistributionSdk\Exceptions\ValidationException;
 use Psr\Http\Message\ResponseInterface;
+use Rpungello\SdkClient\Exceptions\ConnectionException;
 use Rpungello\SdkClient\Exceptions\RequestException;
 use Rpungello\SdkClient\SdkClient;
 use Spatie\DataTransferObject\Arr;
@@ -20,6 +21,8 @@ class Client extends SdkClient
     {
         try {
             return parent::get($uri, $query, $headers);
+        } catch (ConnectionException $e) {
+            throw $e;
         } catch (RequestException $e) {
             throw $this->handleRequestException($e);
         }
@@ -29,6 +32,8 @@ class Client extends SdkClient
     {
         try {
             return parent::post($uri, $body, $headers);
+        } catch (ConnectionException $e) {
+            throw $e;
         } catch (RequestException $e) {
             throw $this->handleRequestException($e);
         }
@@ -38,6 +43,8 @@ class Client extends SdkClient
     {
         try {
             return parent::put($uri, $body, $headers);
+        } catch (ConnectionException $e) {
+            throw $e;
         } catch (RequestException $e) {
             throw $this->handleRequestException($e);
         }
