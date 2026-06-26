@@ -67,6 +67,12 @@ class Product extends AbstractDto implements HasCustomFields
 
     public ?Book $primary_book;
 
+    #[MapFrom('images.0')]
+    public ?string $image_url = null;
+
+    #[MapFrom('images.200')]
+    public ?string $thumbnail_url = null;
+
     /**
      * @var CustomField[]
      */
