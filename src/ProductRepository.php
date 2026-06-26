@@ -42,6 +42,7 @@ class ProductRepository extends AbstractRepository
                 'primaryBook',
                 'style.sellingUnit',
                 'style.millUnit',
+                'style.vendor',
             ],
             'count' => $perPage,
             'page' => 1,
