@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 3.1.2 - 2026-06-26
+
+Add image URLs to products
+
 ## 3.1.1 - 2026-06-26
 
 Add vendor to product iterator
