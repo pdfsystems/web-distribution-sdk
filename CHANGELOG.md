@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 3.1.1 - 2026-06-26
+
+Add vendor to product iterator
+
 ## 3.1.0 - 2026-03-24
 
 Update dependencies to support Laravel 13.x
