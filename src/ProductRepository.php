@@ -166,7 +166,7 @@ class ProductRepository extends AbstractRepository
             'warehouse_location' => $product->warehouse_location,
             'sample_warehouse_location' => $product->warehouse_location_sample,
             'custom_fields' => $product->custom_fields_item,
-            'date_discontinued' => $product->discontinued_date,
+            'date_discontinued' => $product->discontinued_date?->format('Y-m-d'),
         ]);
 
         return $this->findById($product->id);
