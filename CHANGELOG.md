@@ -2,6 +2,10 @@
 
 All notable changes to `web-distribution-sdk` will be documented in this file.
 
+## 3.1.3 - 2026-08-04
+
+NW193 - Resolve issue updating discontinued products
+
 ## 3.1.2 - 2026-06-26
 
 Add image URLs to products
